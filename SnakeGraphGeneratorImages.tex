@@ -1,0 +1,150 @@
+\documentclass{standalone}
+%\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\ifluatex\usepackage{luacode}\fi
+\usepackage{amssymb}
+%\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{hyperref}
+
+\usetikzlibrary{matrix,decorations.pathreplacing,calc,shapes,fit}
+\usetikzlibrary{backgrounds}
+\usepackage{mathrsfs}
+\def\curlyG{\mathscr{G}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\colorzero}[1]{\color{gray}{#1}}
+\newcommand{\colorone}[1]{\color{blue}{#1}}
+%
+\pgfkeys{tikz/mymatrixbrace/.style={decorate,thick}}
+\ifluatex
+\begin{luacode*}
+	function signtile(x,y,c)
+		if c==0 then 
+			s='$-$' 
+		else 
+			s='$+$' 
+		end 
+		tex.print("\\node[text width=1.5ex,fill=white,align=center] at ("..x..","..y.."){"..s.."};")
+	end
+	
+	function signtiles(x,y,side)
+		if side==0 then 
+			c1= 0 
+			c2= 1
+		else 
+			c1= 1 
+			c2= 0
+		end
+		signtile(x,y-0.5,c1);
+		signtile(x+0.5,y,c1);
+		signtile(x,y+0.5,c2);
+		signtile(x-0.5,y,c2);
+	end	
+	
+-- as	 : "nenenenen"  e:east n:north
+-- type:	1: G_n 
+-- 		2: G_n e_n
+-- 		3: G_n signs
+-- 		4: signs 
+-- 		5:
+-- 		6:
+-- 		7:
+	function tikzsnake(as,type)
+		type = type or 1
+		x=0
+		y=0
+		sign=0
+		asl=0
+		asl=string.len(as)
+		if type==1 or type==2 or type==3 then
+			tex.print("\\node [square={snake square}] at (0,0) (B0) {$G_{1}$};")
+		else
+			tex.print("\\node [square={snake square}] at (0,0) (B0) {};")
+		end
+		if type==3 then
+			signtiles(0,0,sign)
+		end
+		if type==4 then
+			if asl>0 then
+				if 'n' == string.sub(as,1,1) then
+					signtile(-0.5,0,sign)
+					sign=1
+				else
+					signtile(0,-0.5,sign)
+				end
+			else
+				signtile(0,-0.5,sign)
+				signtile(0.5,0,sign)
+			end	
+		end		
+		for i=1,asl do
+			c=string.sub(as,i,i)
+			if c=='e' then x=x+1 end 
+			if c=='n' then y=y+1 end
+			if type==1 or type==2 or type== 3 then 
+				tex.print("\\node [square={snake square}] at ("..x..","..y..") (B"..i..") {$G_{"..(i+1).."}$};")
+			else
+				tex.print("\\node [square={snake square}] at ("..x..","..y..") (B"..i..") {};")
+			end
+			if type==2 then
+				if c=='e' then
+					tex.print("\\node[text width=1.5ex,fill=white,align=center] at ("..(x-0.5)..","..y.."){$e_{"..i.."}$};")
+				end
+				if c=='n' then
+					tex.print("\\node[text width=1.5ex,fill=white,align=center] at ("..x..","..(y-0.5).."){$e_{"..i.."}$};")
+				end
+			end
+			if type==3 then
+				if sign==1 then sign=0 else sign=1 end
+				signtiles(x,y,sign)
+			end
+			if type==4 then
+				if i==1 then
+					if c=='n' then
+						if sign==1 then sign=0 else sign=1 end
+					end
+				else
+					if c==string.sub(as,i-1,i-1) then
+						if sign==1 then sign=0 else sign=1 end
+					end
+				end
+				if c=='e'  then
+					signtile(x-0.5,y,sign)
+				else
+					signtile(x,y-0.5,sign)
+				end
+				if i==asl then 
+					if c=='e'  then
+						signtile(x,y+0.5,sign)
+					else
+						signtile(x+0.5,y,sign)
+					end
+				end
+			end
+		end
+	end
+\end{luacode*}
+\fi
+%
+%
+\tikzset{
+    square/.style={%
+        draw=none,
+        circle,
+        minimum size=1,
+        append after command={%
+            \pgfextra \draw[#1] ([shift={(-0.5,0.5)}]\tikzlastnode.center)
+            --([shift={(0.5,0.5)}]\tikzlastnode.center)
+            --([shift={(0.5,-0.5)}]\tikzlastnode.center)
+            --([shift={(-0.5,-0.5)}]\tikzlastnode.center)
+            --([shift={(-0.5,0.5)}]\tikzlastnode.center)
+            ;\endpgfextra}
+    },
+    square/.default=black
+}
+\pgfkeys{tikz/snake square/.style={black,thin,fill=none}}

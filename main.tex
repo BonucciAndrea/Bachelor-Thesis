@@ -1,0 +1,73 @@
+\documentclass[12pt,vu]{adammath}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{quiver}
+\usepackage{verbatim}
+\usepackage{standalone}
+\usepackage{lipsum}
+\usepackage{yhmath}
+
+\usepackage{mathrsfs}
+\usepackage{hyperref, showkeys}
+\usepackage[
+backend=biber,
+style=alphabetic,
+]{biblatex}
+\bibliography{Sources}
+\nocite{*}
+
+\def\s{\ensuremath\mathcal{S}}
+\newcommand{\pal}[1]{{#1}_{\leftrightarrow}}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[chapter] 
+
+\theoremstyle{corollary}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{proposition}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Combinatorial aspects of surface Cluster algebras and applications to Frobenius' conjecture}
+\abstracttitle{Bachelor Thesis}
+\author[a.bonucci@student.vu.nl, 2694276]{Andrea Bonucci}
+
+\input{SnakeGraphGeneratorImages}
+
+\begin{document}
+
+\programme{Bachelor Mathematics}
+\track{Bachelor Thesis}
+
+\maketitle
+
+\begin{abstract}
+    
+\end{abstract}
+\newpage 
+\tableofcontents
+\newpage
+\include{ChapterClusterAlgebraIntro}
+\include{ChapterClusAlgebraSurfType}
+\include{ChapterContinuedFractions}
+\include{ChapterFrobeniusConjecture}
+\printbibliography
+\end{document}

@@ -1,0 +1,280 @@
+\chapter{Continued fractions}
+A \emph{continued fraction} is a particularly useful tool in number theory; it allows us to represent any real number as a sequence; more precisely, 
+\begin{equation*}
+    [a_1,a_2,\dots,a_n] = a_1 + \dfrac{1}{a_2+\dfrac{1}{\ddots + \dfrac{1}{a_n}}}.
+\end{equation*}
+For example, consider the real numbers $22/7,\sqrt{2}$; then, $22/7 = 3+1/7 = [3;7]$, and 
+\begin{align*}
+    \sqrt{2} &= 1 + \dfrac{1}{2+ \dfrac{1}{2 + \ddots}} = [1;2,2,2,\dots].
+\end{align*}
+The reader may notice that for $\alpha \in \mathbb{R}$, then the continued fraction of $\alpha$ is finite if and only if $\alpha \in \mathbb{Q}$. In fact, if $\alpha = p/q$, for $p,q \in \mathbb{Z}$, then the continued fraction algorithm is nothing but the Euclidean algorithm applied to $p$ and $q$. 
+
+A continued fraction $[a_1,\dots,a_n]$ is \emph{positive} if $a_i \in \mathbb{Z}_{\geq 0}$ for all $i$; and we say it is \emph{simple} if $a_1 \in \mathbb{Z}$ and $a_j \in \mathbb{Z}_{\ge 1}$ for $2 \leq j \leq n$. Moreover, if $a_n = 1$, and clearly $1/1 = 1$, it holds that $[a_1,\dots,a_{n-1},1] = [a_1,\dots,a_{n-1}+1]$. This identity yields the following classical result;
+\begin{theorem}[\cite{HW}, Theorem 162 p.g. 136]\label{thm3.4}~ 
+    \begin{itemize}
+        \item[(i)] There exists a bijection between the set of rational numbers greater than 1 $\mathbb{Q}_{> 1}$, and the set of positive, finite continued fractions whose last coefficients (e.g. $a_n$ in the paragraph above) is at least 2. 
+        \item[(ii)] There exists a bijection between the set of rational numbers $\mathbb{Q}$, and the set of simple, finite continued fractions whose last coefficient is at least 2. 
+    \end{itemize}
+\end{theorem}
+\section{Snake graphs of a continued fraction}
+In \cite{CS2} the construction of a snake graph, by using the sign function described in the previous chapter, corresponding to a continued fraction is described; it is done in a way such that the number of perfect matchings is equal to the numerator of the fraction. For a continued fraction $[a_1,\dots,a_n]$, we denote by $\mathcal{S}[a_1,\dots,a_n]$ its corresponding snake graph. 
+
+Consider $[a_1,\dots,a_n]$, and the sequence 
+\begin{equation}\label{signsequence}
+\begin{array}{cccccccc}
+ %(f(e_0),f(e_1),\ldots,f(e_d)) &=&
+  ( \underbrace{ -,\ldots,-},&  \underbrace{ + ,\dots, +},&  \underbrace{ -,\ldots,-},& \ldots,&  \underbrace{\epsilon,\ldots,\epsilon}) ,  \\
+ a_1 & a_2 & a_3&\ldots&a_n
+\end{array} 
+\end{equation}
+where $\epsilon = $
+$
+\begin{cases}
++  \ \text{if} \ n \ \text{is even}; \\
+- \ \text{if} \ n \ \text{is odd}
+\end{cases}.
+$
+\\
+
+Then, the snake graph $\mathcal{S}[a_1,\dots,a_n]$ is the graph with precisely $a_1 + \dots + a_n - 1$ tiles determined by the sign sequence \ref{signsequence}. For the reader's understanding, we provide a worked out example. 
+
+\begin{example}\label{Ex3.5}
+Consider the fraction $31/7$, with its corresponding continued fraction $[4,2,3]$. We get the sign sequence
+$
+\begin{array}{ccc}
+  ( -,-,-,-,&  +,+,&  -,-,-);
+\end{array}
+$
+which yields the following snake graph (on the left);
+\begin{figure}[H]
+    \centering
+    \input{figures/SnakeGraphCFEx1NoPM}
+\end{figure}
+\end{example}
+On the right, we have the snake graph in which the number at tile $G_i$ indicates the number of perfect matchings of the subsnake graph given by the first $i$ tiles.  
+We can take the above result to yield and even stronger condition on the relation between continued fractions and snake graphs. As mentioned above, the number of perfect matchings of a snake graph $\mathcal{S}[a_1,\dots,a_n]$ is precisely equal to the numerator of the continued fraction $[a_1,\dots, a_n]$. Furthermore, in \cite{CS2}, the authors prove the following result;
+\begin{theorem}\label{thm3.6}
+    If $m(\mathcal{S})$ denotes the number of perfect matchings of $\mathcal{S}$, then
+    \begin{equation*}
+        [a_1,\dots,a_n] = \dfrac{m(\mathcal{S}[a_1,\dots,a_n])}{m(\mathcal{S}[a_2,\dots,a_n])}.
+    \end{equation*}
+\end{theorem}
+In other words, the number of perfect matchings of the snake graph $\mathcal{S}[a_2,\dots,a_n]$ is equal to the denominator of the continued fraction $[a_1,a_2,\dots,a_n]$. Applying it to Example \ref{Ex3.5}, we get the continued fraction $[2,3]$, with sign sequence $
+\begin{array}{cc}
+  (+,+,&  -,-,-);
+\end{array}
+$; which yields the following
+\begin{figure}[H]
+    \centering
+    \input{figures/DenominatorSnakeContFrac}
+\end{figure}
+as required. 
+Finally, let $f$ be the map from a snake graph $\s$ to a continued fraction by the sign sequence; then Theorem \ref{thm3.4} can be represented and strengthened via the following result; 
+\begin{theorem}[\cite{CS2}, Theorem 4.1]\label{thm3.7}
+    There is a commutative diagram;
+\[\begin{tikzcd}
+	\left\{\begin{array}{c}
+\text{pairs $(\s,e_d)$ of a snake graph $\s$} \\ \text{with $d \geq 1$ tiles, and $e_d$ in last tile}
+\end{array}\right\} &&& \left\{\begin{array}{c}
+\text{positive continued fractions different} \\ \text{from the continued fraction $[1]$}
+\end{array}\right\} \\
+	\\
+	\left\{\begin{array}{c}
+\text{snake graphs $\s$ with} \\ \text{at least $1$ tile}
+\end{array}\right\} &&& \left\{\begin{array}{c}
+\text{positive continued fractions} \\ \text{with last coefficient $>1$}
+\end{array}\right\} \\
+	&&& \mathbb{Q}_{>1}
+	\arrow["\chi"', from=3-1, to=4-4]
+	\arrow["{\text{forget} \ e_d}"', two heads, from=1-1, to=3-1]
+	\arrow["g", two heads, from=1-4, to=3-4]
+	\arrow["{F'}", from=3-1, to=3-4]
+	\arrow["Ev"', from=3-4, to=4-4]
+	\arrow["G"', shift right=3, from=1-1, to=1-4]
+	\arrow["F", shift left=2, from=1-1, to=1-4]
+	\arrow["\cong"{pos=0.6}, from=3-1, to=4-4]
+	\arrow["\cong"', shift left=3, from=1-4, to=1-1]
+	\arrow["\cong", from=3-4, to=4-4]
+\end{tikzcd}\]
+where the maps are defined as follows:
+\begin{itemize}
+    \item $F$ maps the pair $(\s,e_d)$ to the continued fraction defined by the sign sequence 
+    \begin{equation*}
+        (f(e_0), f(e_1), \dots, f(e_d));
+    \end{equation*} 
+    \item $F'$ maps the snake graph $\s$ to the continued fraction defined by the sign sequence 
+    \begin{equation*}
+        (f(e_0),\dots,f(e_{d-1}),f(e_{d-1})).
+    \end{equation*} 
+    \item $G$ sends $[a_1,\dots,a_n]$ to the pair consisting of the snake graph $\s[a_1,\dots,a_n]$ and an edge $e_d$ determined by the sign sequence. 
+    \item $g$ is defined by
+    \begin{equation*}
+        g([a_1,\dots,a_n]) = \begin{cases}
+            [a_1,\dots,a_{n-1} + 1], \ &\text{if } a_n = 1 \\
+            [a_1,\dots,a_n] \ &\text{if } a_n > 1.
+        \end{cases}
+    \end{equation*} 
+    \item $\chi$ maps a snake graph $\s$ to the quotient 
+    \begin{equation*}
+        \dfrac{m(\s)}{m\left(\s \backslash \left\{\begin{array}{c}
+\text{first zigzag} \\ \text{subsnake graph}
+\end{array}\right\}\right)}
+    \end{equation*}
+    \item $Ev$ is the bijection in Theorem \ref{thm3.4}; which sends a continued fraction to its value.
+\end{itemize}
+Additionally, $F,G,F',\chi$ and $Ev$ are bijections.
+\end{theorem}
+To better understand how the map $\chi$ works, recall Example \ref{Ex3.5}, i.e. we have the fraction $31/7 = [4,2,3]$, and notice that its first zigzag subsnake graph is precisely that determined by the first 4 tiles; so that we obtain 
+\begin{equation*}
+  \s \backslash \left\{\begin{array}{c}
+\text{first zigzag} \\ \text{subsnake graph}
+\end{array}\right\} = 
+  \begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)},vertex/.style={anchor=base,
+    circle,fill=black!25,minimum size=18pt,inner sep=2pt}]
+    \directlua{tikzsnake("nne",5)}
+  \end{tikzpicture}
+\end{equation*}
+which corresponds to the continued fraction $[1,1,3]$; hence we have precisely that $\chi([4,2,3]) = m(\s[4,2,3])/m(\s[1,1,3]) = 31/7$. This is quite intuitive as a zigzag subsnake graph has a sign sequence of the form $(\pm,\dots,\pm)$; in other words, the corresponding continued fraction is of length 1; thus $\chi$ is essentially removing the first entry of a continued fraction, almost applying Theorem \ref{thm3.6}.
+\section{Palindromification}
+Observe that given any snake graph $\mathcal{S}$, rotating it by $180^{\circ}$ yields an isomorphic snake graph. Similarly, if we mirror $\mathcal{S}$ over the lines $y = x$, and $y = -x$, we also obtain isomorphic snake graph. Moreover, observe that;
+\begin{align*}
+    [a_1,\dots,a_n] &= a_1 + \dfrac{1}{a_2+\dfrac{1}{\dots + \dfrac{1}{a_n}}}\\
+    &= a_1 + \dfrac{1}{a_2+\dfrac{1}{\dots + \dfrac{1}{a_n-1 + \dfrac{1}{1} }}}= [a_1,\dots,a_n -1 , 1].
+\end{align*}
+This yields to the following observation;
+\begin{theorem}\label{thm3.8}
+    We have the following isomorphisms; where $e_d$ is the edge of the final tile:
+\begin{itemize}
+    \item[(a)] Mirror over $y=x$;
+    \begin{equation*}
+        \mathcal{S}[a_1,\dots,a_n] \cong \mathcal{S}[1,a_1-1,a_2,\dots,a_n].
+    \end{equation*}
+    \item[(b)] Mirror over $y = -x$;
+    \begin{equation*}
+        \mathcal{S}[a_1,\dots,a_n] \cong 
+        \begin{cases}
+            \mathcal{S}[1,a_n-1,\dots,a_2,a_1] \ &\text{if} \ e_d \ \text{is north}; \\
+            \mathcal{S}[a_n,\dots,a_1] \ &\text{if} \ e_d \ \text{is east.}
+        \end{cases}
+    \end{equation*}
+    \item[(c)] Rotation by $180^{\circ}$;
+    \begin{equation*}
+        \mathcal{S}[a_1,\dots,a_n] \cong 
+        \begin{cases}
+            \mathcal{S}[1,a_n-1,\dots,a_2,a_1] \ &\text{if} \ e_d \ \text{is east}; \\
+            \mathcal{S}[a_n,\dots,a_1] \ &\text{if} \ e_d \ \text{is north.}
+        \end{cases}
+    \end{equation*}
+\end{itemize}
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+    \item[(a)] Consider $\mathcal{S} = \mathcal{S}[a_1,\dots,a_n]$; then its corresponding sign sequence is 
+    \begin{equation*}
+        \begin{array}{cccccccc}
+  ( \underbrace{ -,\ldots,-},&  \underbrace{ + ,\dots, +},&  \underbrace{ -,\ldots,-},& \ldots,&  \underbrace{\pm,\ldots,\pm}) ;  \\
+ a_1 & a_2 & a_3&\ldots&a_n
+\end{array}
+    \end{equation*}
+    if we mirror $\mathcal{S}$ over the line $y = x$, we notice that we obtain the sign sequence
+    \begin{equation*}
+        \begin{array}{cccccccc}
+  (  -,&  \underbrace{ + ,\dots, +},&  \underbrace{ -,\ldots,-},& \ldots,&  \underbrace{\mp,\ldots,\mp}) . \\
+ &a_1 -1 & a_2 & \ldots&a_n
+\end{array}
+    \end{equation*}
+    Therefore, for $a_1 > 1$, it holds that this is an isomorphism of snake graphs. For the case when $a_1 = 1$, notice that if this processed is reversed, it yields an isomorphism.
+    \item[(b)] Define $\Tilde{\mathcal{S}}$ to be the snake graph $\mathcal{S}$ after being mirrored over the line $y = -x$. Let $\Tilde{e}_1,\dots,\Tilde{e}_{d-1}$ be the inner edges of $\Tilde{\mathcal{S}}$; and let $e_0$ be the south edge of the first tile, $G_1$, of $\s$. By mirroring, we obtain a map $\s \xrightarrow{\varphi} \Tilde{\s}$, such that it maps the first tile of $\s$, to the last tile of $\Tilde{\s}$. Say $e_d$ is the east edge of the last tile, of $\s$; then under $\varphi$, it is mapped to the south edge of the first tile of $\Tilde{\s}$; say $\Tilde{e}_0$. Conversely, if $e_d$ is the north edge of the last tile of $\s$, then it is mapped to the west edge of the first tile of $\Tilde{\s}$. In either cases, we have $\Tilde{\s} = \s[a_n,\dots,a_1]$.
+    \item[(c)] This follows from a similar reasoning to (b).
+\end{itemize}
+\end{proof}
+Consequently, since we have that $\s[a_1,\dots,a_n] \cong \s[a_n,\dots,a_1]$, via one of the appropriate isomorphisms above, then we can conclude that $m(\s[a_1,\dots,a_n]) = m(\s[a_n,\dots,a_1])$; which by Theorem \ref{thm3.6}, implies that the continued fractions $[a_1,\dots,a_n]$ and $[a_n,\dots,a_1]$ have the same numerator. This yields the following corollay;
+\begin{corollary}
+    The continued fractions $[a_1,\dots,a_n]$ and $[a_n,\dots,a_1]$ have the same numerator.
+\end{corollary}
+Now consider $[a_1.\dots,a_n]$; if $n$ is even, then the continued fraction is said to be of \emph{even length}; moreover, it is \emph{palindromic} if $(a_1,\dots,a_n) = (a_n , \dots, a_1)$. Its corresponding snake graph $\s=\s[a_1,\dots,a_n]$ is then called \emph{palindromic of even length}. Lastly, we say that $\s$ has a rotational symmetry at its center tile if $\s$ has a tile $G_i$ such that rotation by $180^{\circ}$ is an automorphism. Note that the number of tiles must be odd in order to have a center tile; i.e., if $d$ is the total number of tiles then  if $G_i$ is the center tile we must have that $i = (d+1)/2$.
+
+\begin{figure}[!htb]
+   \begin{minipage}{0.48\textwidth}
+     \centering
+ \begin{tikzpicture}    
+    \directlua{tikzsnake("enne",5)}
+    \end{tikzpicture}
+   \end{minipage}\hfill
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \begin{tikzpicture}    
+    \directlua{tikzsnake("eeenneee",5)}
+    \end{tikzpicture}
+   \end{minipage}
+   \caption{\label{fig3.1}Examples of snake graphs that have a rotational symmetry at their center tile.}
+\end{figure}
+   \begin{theorem}\label{thm3.10}
+       A snake graph $\s$ is palindromic of even length if and only if $\s$ has a rotational symmetry at its center tile.
+   \end{theorem}
+   \begin{proof}
+       First, suppose $\s = \s[a_1,\dots,a_n,a_n,\dots,a_1]$ is a palindromic snake graph of even length. Let $d$ be the number its number of tiles and observe that by definition, $d = a_1+\dots+a_n + a_n + \dots+ a_1 -1 = 2(a_1,\dots,a_n) -1$; so we have that $d$ is odd; then let $G_i$ be its center tile and notice that $i = (d+1)/2$. Observe that the subsnake graph consisting of the first $i-1$ tiles is isomorphic to $\s[a_1,\dots,a_n]$; and similarly the subsnake graph consisting of the last $i-1$ tiles is then isomorphic to $\s[a_n,\dots,a_1]$. Consequently, note that the subsnake graph formed by the tiles $G_{i-1},G_i,G_{i+1}$ is isomorphic to $\s[2,2]$; so the interior edges $e_{i-1}$ and $e_i$ are parallel; and since $e_{i-1}$ is the last interior edge of $\s[a_1,\dots,a_n]$, and $e_i$ is the first interior edge of $\s[a_n,\dots,a_1]$, it holds that $e_0$ and $e_d$ are parallel. Recall that $e_0$ is the south exterior edge of the first tile $G_1$, so $e_d$ must be the north edge of the last tile $G_d$. By Theorem \ref{thm3.8}, we have that rotation by $180^{\circ}$ at tile $G_i$ is an automorphism.
+       \\
+
+       On the other hand, suppose $\s$ has a rotational symmetry at its center tile $G_i$; then it is clear that the tiles $G_{i-1},G_i,G_{i+1}$ form a snake graph that is isomorphic to $\s[2,2]$; so the interior edges $e_{i-1}$ and $e_i$ have different signs. Define $\s[a_1,\dots,a_j]$ to be the snake graph consisting of the first $i-1$ tiles; and $\s[a_{j+1},\dots,a_n]$ that formed by the last $i-1$ tile. Then we must have that $\s$ is of the form $\s[a_1,\dots,a_j,a_{j+1},\dots,a_n]$. By rotational symmetry, we have $(a_1,\dots,a_j) = (a_n,\dots,a_{j+1})$; as required. 
+   \end{proof}
+To illustrate \ref{thm3.10}, notice that in figure \ref{fig3.1}, on the left, we have the snake graph $\s[3,3]$, and on the right we have $\s[2,1,2,2,1,2]$; both of which are palindromic of even length. Next, consider a snake graph $\s=\s[a_1,\dots,a_n]$. We define the \emph{palindromification} of $\s$, $\s_{\leftrightarrow}$, to be $\s_{\leftrightarrow} = \s[a_n,\dots,a_1,a_1,\dots,a_n]$; that is, we glue two copies of $\s$ together, via a new center tile. 
+\\
+
+Let $b_i$ be the single edge corresponding to the tile $G_{l_i}$ in $\s[a_1,\dots,a_n]$, $b_0$ the unique edge in the first tile $G_1$ apart from the edge $e_0$, and $b_n$ the unique edge in the last tile $G_d$ apart from the edge $e_d$. In \cite{CS2} the authors proved the following identity, through a process called \emph{grafting}(see also \cite{CS3});
+\begin{theorem}\label{thm3.11}
+    If we set $b_0 = \s[a_1,\dots,a_0]$, and $b_n = \s[a_{n+1},\dots,a_n]$, we obtain the following identity;
+\begin{equation*}
+    b_i\s[a_1,\dots,a_n] = \s[a_1,\dots,a_i]\s[a_{i+1},\dots,a_n]+\s[a_1,\dots,a_{i-1}]\s[a_{i+2},\dots,a_n].
+\end{equation*}
+\end{theorem}
+Through the above theorem, notice that if we apply it to $\s_{\leftrightarrow} = \s[a_n,\dots,a_1,a_1,\dots,a_n]$ for $i=n$, we get the following;
+\begin{equation*}
+    b_n\s[a_n,\dots,a_1,a_1,\dots,a_n] = \s[a_n,\dots,a_n]\s[a_1,\dots,a_n]+\s[a_n,\dots,a_2]\s[a_2,\dots,a_n].
+\end{equation*}
+that is, by symmetry, we have 
+\begin{equation}
+    \s[a_1,\dots,a_n]^2 + \s[a_2,\dots,a_n]^2 = \s\s + \Tilde{\s}\Tilde{\s}
+\end{equation}
+so we obtain that $m(\s_{\leftrightarrow}) = m(\s)^2 + m(\Tilde{\s})^2$; where $\Tilde{\s} = \s[a_2,\dots,a_n]$. This leads to the following result;
+\begin{theorem}\label{thm3.12}
+    Let $\s = \s[a_1,a_2,\dots,a_n]$ with $\s_{\leftrightarrow}$ its palindromification. Let $\Tilde{\s} = \s[a_2,\dots,a_n]$; then
+    \begin{equation*}
+        m(\s_{\leftrightarrow}) = m(\s)^2 + m(\Tilde{\s})^2.
+    \end{equation*}
+\end{theorem}
+Consequently, we obtain the following corollary;
+\begin{corollary}
+    Let $[a_1,\dots,a_n] = p_n/q_n$; then
+    \begin{equation*}
+        [a_n,\dots,a_1,a_1,\dots,a_n] = \dfrac{p_n^2 + q_n^2}{p_{n-1}p_n + q_{n-1}q_n}.
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Notice that by Theorem \ref{thm3.6}, we have;
+    \begin{align}
+        [a_n,\dots,a_1,a_1,\dots,a_n] &= \dfrac{m(\pal{\s})}{m(\s[a_{n-1},\dots,a_1,a_1,\dots,a_n])}
+    \end{align}
+    where via Theorem \ref{thm3.12} and \ref{thm3.11}, the left side becomes;
+    \begin{equation*}
+        \dfrac{m(\s)^2 + m(\Tilde{\s})^2}{m(\s[a_{n-1},\dots,a_1])m(\s[a_1,\dots,a_n])+ m(\s[a_{n-1},\dots,a_2])m(\s[a_2,\dots,a_n])};
+    \end{equation*}
+    which by symmetry it is equal to $ \dfrac{p_n^2 + q_n^2}{p_{n-1}p_n + q_{n-1}q_n}$.
+\end{proof}
+\begin{example}
+    Consider the continued fraction $[3,1,5] = 23/6$; then observe that $[3,1] = 4$, and its palindromification
+    \begin{equation*}
+        [5,1,3,3,1,5] = \dfrac{565}{98}= \dfrac{23^2 + 6^2}{4 \cdot 23 + 1 \cdot 6}
+    \end{equation*}.
+\end{example}
+Suppose that we have an integer $N$, such that we can write $N = p^2 + q^2$, where $p > q \geq 1$ such that gcd$(p,q) = 1$. Then we say that $N$ is a \emph{sum of two relatively prime squares}. Consequently, we obtain the following corollary;
+\begin{corollary}~ 
+    \begin{itemize}
+        \item[(a)] If $N$ is a sum of two relatively prime squares, then there exists a palindromic snake graph of even length $\s$ such that $m(\s) = N$;
+        \item[(b)] For each positive integer $N$, the number of ways one can write $N$ as a sum of two relatively prime squares is equal to is equal to half the number of palindromic snake graphs of even length with $N$ perfect matchings;
+        \item[(c)] For each positive integer $N$, the number of ways one can write $N$ as a sum of two relatively prime squares is equal to half the number of palindromic continued fractions of even length with numerator equal to $N$. 
+    \end{itemize}
+\end{corollary}
+\begin{proof}
+    For part (a), suppose $p > q \geq 1$, with gcd$(p,q) = 1$; and let $[a_1,\dots,a_n] = p/q$. Then by Theorem \ref{thm3.12}, and Theorem \ref{thm3.6}, it follows that $\s[a_n,\dots,a_1,a_1,\dots,a_n]$ has precisely $N$ perfect matchings. For part (b) and (c), the bijections given in Theorem \ref{thm3.7} suffice.
+\end{proof}

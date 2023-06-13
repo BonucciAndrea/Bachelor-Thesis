@@ -1,0 +1,51 @@
+\documentclass{beamer}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{quiver}
+\usepackage{tikz-cd}
+\title{Quivers}
+\begin{document}
+\maketitle
+\begin{frame}{Quiver 1}
+\[
+\begin{tikzcd}
+1 \arrow[r,"\alpha"] && 3
+\end{tikzcd}
+\]
+\[
+\begin{tikzcd}
+1 \arrow[r,bend left,"\alpha"] \arrow[r,bend right,swap,"\beta"] && 2
+\end{tikzcd}
+\]
+\[
+\begin{tikzcd}
+1 \arrow[r,bend left,"\alpha"] && 2 \arrow[r,bend right,"\beta"] &&3
+\end{tikzcd}
+\]
+\end{frame}
+
+\begin{frame}{Quiver 2}
+\[\begin{tikzcd}
+	\bullet &&&& \bullet \\
+	& \bullet \\
+	&&&& \bullet \\
+	&&& \bullet
+	\arrow[from=2-2, to=4-4]
+	\arrow[from=2-2, to=1-5]
+	\arrow[curve={height=-30pt}, from=1-5, to=4-4]
+	\arrow[curve={height=12pt}, from=1-1, to=4-4]
+	\arrow[shift right=1, from=1-5, to=3-5]
+	\arrow[shift left=1, from=1-5, to=3-5]
+	\arrow[from=1-1, to=2-2]
+	\arrow[curve={height=-12pt}, from=1-1, to=1-5]
+	\arrow[shift right=1, curve={height=-6pt}, from=4-4, to=1-5]
+	\arrow[shift left=1, curve={height=-6pt}, from=4-4, to=1-5]
+	\arrow[shift right=2, curve={height=12pt}, from=1-1, to=4-4]
+\end{tikzcd}\]
+\end{frame}
+\end{document}

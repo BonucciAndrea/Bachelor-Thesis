@@ -1,0 +1,198 @@
+\chapter{Introduction to Cluster algebras}
+The definition of a Cluster algebra is not particularly difficult; however, it is involved. We begin by describing the space we are examining. Let $(\mathcal{G}, \cdot)$ be any free abelian (multiplicative) group, with basis $\mathbf{y} = \{y_1,\dots,y_n\}$. Next, define an operation $\oplus$ by;
+\begin{equation}
+    \prod_j y_j^{a_j} \oplus \prod_j y_j^{b_j} = \prod_j y_j^{(\text{min}(a_j,b_j))};  
+\end{equation}
+e.g. $y_1^3y_2^{-4}y_3y_4^5 \oplus y_1^{-1} = y_1^{-1}y_2^{-4}$. The reader may like to verify that $\oplus$ is indeed well-defined. Finally, we obtain that $(\mathcal{G},\oplus, \cdot)$ is semifield, i.e. $\oplus$ is commutative, associative and distributive with respect to multiplication in $\mathcal{G}$; more precisely, due to the nature of the operation $\oplus$, $(\mathcal{G},\oplus, \cdot)$ is also known as a \emph{tropical semifield}. Finally, consider the group ring $\mathbb{Z}\mathcal{G}$ of $\mathcal{G}$ and note that $\mathbb{Z}\mathcal{G}$ is exactly the ring of \emph{Laurent polynomials} in the variables $y_1,\dots, y_n$; this will be the used as the ground ring for the corresponding Cluster algebra. 
+\section{Quivers, initial seeds and mutations}
+A \emph{quiver} $\mathcal{Q}$ is a directed graph; i.e. a $4$-tuple $(\mathcal{Q}_0, \mathcal{Q}_1, h, t)$, where $\mathcal{Q}_0$ and $\mathcal{Q}_1$ are the collections of vertices and arrows, respectively. Similarly, $h,t: \mathcal{Q}_1 \to \mathcal{Q}_0$, are set functions that map the head and tail of each arrow in $\mathcal{Q}_1$ in the appropriate direction. Moreover, if $\mathcal{Q}$ does not have any 2-cycles, i.e. $\circ \rightleftarrows \circ$, and does not have any loop, which is simply an arrow from a vertex to itself, then $\mathcal{Q}$ is called a \emph{Cluster quiver}. These will be our main focus throughout the paper.
+\begin{figure}[!htb]
+\centering
+\minipage[c]{0.32\textwidth}
+\footnotesize
+  \[\begin{tikzcd}
+	&& 1 \\
+	\\
+	2 &&&& 3 \\
+	\\
+	&& 4
+	\arrow[from=5-3, to=1-3]
+	\arrow[shift left=2, from=3-1, to=5-3]
+	\arrow[shift left=2, from=5-3, to=3-5]
+	\arrow[from=1-3, to=3-5]
+	\arrow[from=1-3, to=3-1]
+	\arrow[shift right=1, from=5-3, to=3-5]
+	\arrow[from=3-1, to=5-3]
+	\arrow[shift right=2, from=3-1, to=5-3]
+\end{tikzcd}\]
+\endminipage\hfill
+\minipage[c]{0.32\textwidth}
+\footnotesize
+  \[\begin{tikzcd}
+	&& 1 \\
+	\\
+	2 &&&& 3
+	\arrow[from=1-3, to=3-5]
+	\arrow[shift right=1, from=1-3, to=3-1]
+	\arrow[shift right=1, from=3-1, to=1-3]
+	\arrow[from=3-1, to=3-5]
+	\arrow[shift right=2, from=3-1, to=3-5]
+    \arrow[loop right, to = 5-3]
+\end{tikzcd}\]
+\endminipage\hfill
+\minipage[c]{0.32\textwidth}%
+\footnotesize
+\[\begin{tikzcd}
+	1 && 2 && 3 \\
+	&& 4
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-5, to=1-3]
+	\arrow[from=2-3, to=1-3]
+	\arrow[curve={height=-30pt}, from=1-1, to=1-5]
+\end{tikzcd}\]
+\endminipage
+\caption{Examples of \emph{Cluster quivers} (left and rightmost); and example of quiver that is not of the Cluster type (center); notice that it has a 2-cycle, namely $1 \rightleftarrows 2$, and has a loop. }
+\end{figure}
+\\
+A \emph{seed} $(\mathbf{x},\mathbf{y},\mathcal{Q})$ is what determines the corresponding Cluster algebra, denoted $\mathcal{A} = \mathcal{A}(\mathbf{x},\mathbf{y},\mathcal{Q})$, (through a few rules); where
+    \begin{itemize}
+        \item $\mathbf{x}=(x_1,\dots,x_n)$ is the $n$-tuple of variables, called the \emph{initial Cluster}; e.g. in the setting of triangulated polygons, these are precisely the diagonals of the triangulation. 
+        \item $\mathbf{y}=(y_1,\dots,y_n)$ is the $n$-tuple of generators, called the \emph{initial coefficients}; e.g. in the setting of Conway-Coxeter frieze patterns, all these variables are equal to 1; or rather, the (free abelian) group corresponding to Conway-Coxeter frieze patterns is precisely $\mathbb{Z}$, with the usual multiplication, which has basis $1$.
+    	\item $\mathcal{Q}$ a Cluster quiver;
+    \end{itemize}
+The process of generating a Cluster algebra from an initial seed is by iterating what is called a \emph{Cluster mutation}, or simply \emph{mutation}. A mutation $\mu_k$ acts on the initial seed as follows; 
+
+\begin{itemize}
+    \item $\Tilde{\mathbf{x}} :=\mu_k\mathbf{x} = \{\mathbf{x} / x_k\} \cup \{x_k^{'}\}$; where, 
+        \begin{equation}
+            x_k^{'} = \dfrac{1}{y_k \oplus 1}\dfrac{y_k\prod_{i \to k}x_i + \prod_{k \to j}x_j}{x_k};
+        \end{equation}
+        where the first product is over all arrows going into vertex $k$, in the corresponding quiver; and similarly, the second product is over all arrows going out from vertex $k$.
+    \item $\Tilde{\mathbf{y}} := \mu_k\mathbf{y} = (y_1^{'},\dots,y_n^{'})$; where,
+    \begin{equation*}
+    y_j = 
+        \begin{cases}
+        y_j \prod_{k \to i}y_k(y_k \oplus 1)^{-1} \prod_{j \to k}(y_k \oplus 1),  \ &\text{if} \ j \ne k \\
+        y_k^{-1}, &\text{if} \ j = k;
+        \end{cases}
+    \end{equation*}
+    \item Lastly, $\mu_k$ acts on the quiver $\mathcal{Q}$ in the following way;
+    \begin{itemize}
+        \item[i.] For any path $i \to k \to j$, add an arrow $i \to j$,
+        \item[ii.] Invert all arrows going into and coming out from vertex $k$,
+        \item[iii.] Remove any $2$-cycles;
+    \end{itemize}
+    through this, we obtain a new quiver $\mathcal{Q}^{'}$.
+\end{itemize}
+Hence, we finally obtain that the new seed after mutation $\mu_k$ is precisely $(\Tilde{\mathbf{x}},\Tilde{\mathbf{y}}, \mathcal{Q}^{'})$. The Cluster algebra is then the  $\mathbb{F}\mathcal{G}$-subalgebra of $\mathcal{F}:= \mathbb{Q}\mathcal{G}(x_1,\dots,x_n)$; i.e. it is a subalgebra of the field of rational functions in $n$ variables and coefficients in $\mathbb{Z}\mathcal{G}$; generated by, what are called, \emph{Cluster variables}, which are obtained from the initial seed by a recursively applying mutations; the reader may quickly notice that given any seed there are $n$ different mutations $\mu_1, . . . , \mu_n$, one for each vertex of the quiver, which corresponds to the number of Cluster variables. We denote by $\mathcal{X}$, the set of all possible Cluster variables after any arbitrarily long sequence of mutations.\footnote[1]{Notice that mutations are involutions; i.e. $\mu_k\circ\mu_k =\textit{Id}$.}
+\begin{figure}[!htb]
+\centering
+\minipage[c]{0.45\textwidth}
+\footnotesize
+  \[\begin{tikzcd}
+	1 &&&& 2 \\
+	& 3 \\
+	&&&& 4 \\
+	&&& 5
+	\arrow[from=2-2, to=4-4]
+	\arrow[from=2-2, to=1-5]
+	\arrow[curve={height=-46pt}, from=1-5, to=4-4]
+	\arrow[curve={height=12pt}, from=1-1, to=4-4]
+	\arrow[shift right=1, from=1-5, to=3-5]
+	\arrow[shift left=1, from=1-5, to=3-5]
+	\arrow[from=1-1, to=2-2]
+	\arrow[curve={height=-12pt}, from=1-1, to=1-5]
+	\arrow[shift left=1, curve={height=-6pt}, from=4-4, to=1-5]
+	\arrow[shift right=2, curve={height=12pt}, from=1-1, to=4-4]
+    \end{tikzcd}\]
+\endminipage\hfill
+\minipage[c]{0.1\textwidth}
+\Large
+$\xleftrightarrow{\mu_3}$
+\endminipage\hfill
+\minipage[c]{0.45\textwidth}%
+\footnotesize
+\[\begin{tikzcd}
+	1 &&&& 2 \\
+	& 3 \\
+	&&&& 4 \\
+	&&& 5
+	\arrow[curve={height=12pt}, from=1-1, to=4-4]
+	\arrow[curve={height=-12pt}, from=1-1, to=1-5]
+	\arrow[from=2-2, to=1-1]
+	\arrow[from=1-5, to=2-2]
+	\arrow[from=4-4, to=2-2]
+	\arrow[curve={height=-6pt}, from=4-4, to=1-5]
+	\arrow[shift left=1, from=1-5, to=3-5]
+	\arrow[shift right=1, from=1-5, to=3-5]
+	\arrow[curve={height=-46pt}, from=1-5, to=4-4]
+	\arrow[shift right=2, curve={height=12pt}, from=1-1, to=4-4]
+	\arrow[shift right=4, curve={height=12pt}, from=1-1, to=4-4]
+	\arrow[shift left=2, curve={height=-12pt}, from=1-1, to=1-5]
+\end{tikzcd}\]
+\endminipage
+\caption{Example of a quiver mutation $\mu_3$.}
+\end{figure}
+\begin{example}
+Let the initial seed be 
+\begin{equation*}
+(\mathbf{x},\mathbf{y},\mathcal{Q}) = ((x_1,x_2,x_3),(1,1,1),\begin{tikzcd}
+	1 & 2 & 3
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-3, to=1-2]
+	\arrow[curve={height=-12pt}, from=1-1, to=1-3].
+\end{tikzcd})
+\end{equation*}
+Note that any mutation on $\mathbf{y}$ leaves it unchanged as we set it to be a vector of $1$'s; hence we will leave it out. Next, consider $\mu_1$, and we then obtain $x_1^{'} = (1+x_2x_3)/x_1$, and the resulting seed is now;
+\begin{equation*}
+    \left(\dfrac{1+x_2x_3}{x_1},x_2,x_3\right), \begin{tikzcd}
+	1 & 2 & 3
+	\arrow[from=1-2, to=1-1]
+	\arrow[from=1-3, to=1-2]
+	\arrow[curve={height=12pt}, from=1-3, to=1-1]
+\end{tikzcd}.
+\end{equation*}
+We then apply mutation $\mu_2$, which yields;
+\begin{equation*}
+    \left(\dfrac{1 + x_2x_3}{x_1},\dfrac{x_1x_3+x_3x_2}{x_1x_2},x_3\right), \begin{tikzcd}
+	1 & 2 & 3
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[curve={height=12pt}, from=1-3, to=1-1]
+	\arrow[shift right=1, curve={height=12pt}, from=1-3, to=1-1]
+\end{tikzcd}.
+\end{equation*}
+Apply mutation $\mu_3$;
+\begin{equation*}
+    \left(\dfrac{1 + x_2x_3}{x_1},\dfrac{1 + x_1x_3+x_3x_2}{x_1x_2},\dfrac{x_1 + x_2 + (x_1^2 + x_1x_2 + 2x_2^2)x_3 + x_2^3x_3^2}{x_1^2x_2x_3}\right),\begin{tikzcd}
+	1 & 2 & 3
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-3, to=1-2]
+	\arrow[curve={height=-12pt}, from=1-1, to=1-3]
+	\arrow[shift left=1, curve={height=-12pt}, from=1-1, to=1-3]
+\end{tikzcd}.
+\end{equation*}
+Finally, we apply mutation $\mu_2$ once more;
+\begin{equation*}
+    \left(\dfrac{1 + x_2x_3}{x_1},\dfrac{x_1 + x_2 + x_2^2x_3}{x_1x_3},\dfrac{x_1 + x_2 + (x_1^2 + x_1x_2 + 2x_2^2)x_3 + x_2^3x_3^2}{x_1^2x_2x_3}\right),\begin{tikzcd}
+	1 & 2 & 3
+	\arrow[from=1-2, to=1-1]
+	\arrow[from=1-3, to=1-2]
+	\arrow[curve={height=-12pt}, from=1-1, to=1-3]
+	\arrow[shift left=1, curve={height=-12pt}, from=1-1, to=1-3]
+\end{tikzcd}.
+\end{equation*}
+In general, this process of mutating will always yield a new unseen Cluster variable; i.e., in general, there are infinitely many Cluster variable that arise from Cluster mutations of an arbitrary seed. One may verify that for an initial seed $((x_1,x_2),(1,1),1 \to 2)$, we obtain finitely many Cluster variables; more precisely, there are exactly 5. 
+\end{example}
+In the above example, we can observe that after every mutation, the Cluster variable obtained is, what is called, a \emph{Laurent polynomial}. This is no coincidence; and the following theorem does, in fact, generalize it;
+\begin{theorem}
+Let $c$ in $\mathcal{X}$ be any Cluster variable. Then,
+\begin{equation*}
+    c = \dfrac{f(x_1,\dots,x_n)}{x_1^{\tau_1}\cdots x_n^{\tau_n}};
+\end{equation*}
+with $f \in \mathbb{Z}\mathcal{G}[x_1,\dots,x_n]$.
+\end{theorem}
+This result is particularly surprising as \emph{a priori} any Cluster variable is simply a rational polynomial in the variables $x_1,\dots,x_n$; while in other settings, when dividing two seemingly unrelated multinomials, we in general are not able to simplify it so that we have a monomial in the denominator. 
+\begin{remark}
+The above result can be strengthened further by changing $\mathbb{Z}\mathcal{G}[x_1,\dots,x_n]$ to $\mathbb{Z}_{\geq 0}\mathcal{G}[x_1,\dots,x_n]$, also known as the \emph{positivity conjecture}; in other words, all coefficients of $f$, above, are positive. In \cite{LS}, the authors finally prove the conjecture for all \emph{skew-symmetric} cluster algebras. 
+\end{remark}

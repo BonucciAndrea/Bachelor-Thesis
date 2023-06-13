@@ -1,0 +1,25 @@
+\begin{figure}[!htb]
+\centering
+\minipage[c]{0.5\textwidth}
+\footnotesize
+\centering
+ \begin{tikzpicture}
+\directlua{tikzsnake("eneenne",4)}
+\end{tikzpicture}
+\endminipage\hfill
+\minipage[c]{0.5\textwidth}%
+\centering
+\footnotesize
+\begin{tikzpicture}
+    \directlua{tikzsnake("eneenne",5)}
+    \node at (B0) {$2$};
+	\node at (B1) {$3$};
+	\node at (B2) {$4$};
+	\node at (B3) {$5$};
+	\node at (B4) {$9$};
+	\node at (B5) {$13$};
+	\node at (B6) {$22$};
+	\node at (B7) {$31$};
+\end{tikzpicture}
+\endminipage
+\end{figure}

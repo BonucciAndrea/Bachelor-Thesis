@@ -1,0 +1,21 @@
+\begin{figure}[!htb]
+\centering
+\minipage[c]{0.5\textwidth}
+\footnotesize
+\centering
+ \begin{tikzpicture}
+\directlua{tikzsnake("een",4)}
+\end{tikzpicture}
+\endminipage\hfill
+\minipage[c]{0.5\textwidth}%
+\centering
+\footnotesize
+\begin{tikzpicture}
+    \directlua{tikzsnake("een",5)}
+    \node at (B0) {$2$};
+	\node at (B1) {$3$};
+	\node at (B2) {$5$};
+	\node at (B3) {$7$};
+\end{tikzpicture}
+\endminipage
+\end{figure}

@@ -1,0 +1,97 @@
+\chapter{Cluster algebras of surface type}
+Before we begin, we define what we mean by \emph{surface}, or of \emph{ surface type};
+\begin{definition}
+A \emph{surface} $(S,M)$ is a connected oriented Riemann surface $S$ with (possibly empty) boundary $\partial S$; together with a finite collection $M \subset S$ of \emph{marked points}; with the only condition that each boundary component $\mathbf{must}$ contain at least one marked point.
+\end{definition}
+\begin{figure}[H]
+    \centering
+    \input{figures/MarkedSurfacesExample1}
+    \caption{Examples of marked surfaces, with 0, 0, 1, and 2 boundary components, respectively.}
+\end{figure}
+Any marked point $p \in M$ such that $p \notin \partial S$ is referred to as a \emph{puncture}.
+Once we have a surface, we define additional structures.\begin{definition}(\emph{Ordinary arcs}) 
+    An \emph{arc} $\gamma$ in $(S,M)$ is a curve in $S$, considered up to isotopy, such that;
+    \begin{itemize}
+        \item Its endpoints are in $M$,
+        \item It does not intersect itself, except for possibly having overlapping endpoints,
+        \item Besides its endpoints, $\gamma$ is disjoint from $M$,
+        \item $\gamma$ does not cut out an unpunctured monogon or bigon.
+    \end{itemize}
+\end{definition}
+For the sake of labeling, an arc that starts and ends in the same points is called a \emph{loop}.
+Moreover, suppose we have two arcs $\gamma, \tilde{\gamma}$ on a surface $S$, then we define $e(\gamma, \tilde{\gamma})$ to be the number of intersections between the two arcs when considering all possible isotopy\footnote{An \emph{isotopy} is a homotopy $h: [0,1]\times X \to Y$ such that for each $t \in [0,1]$, $h(t,\bullet)$ is a homeomorphism.} equivalent arcs for both. If $e(\gamma,\tilde{\gamma}) = 0$, then we say that the arcs $\gamma$ and $\tilde{\gamma}$ are compatible. If a maximal triangulation $T$ consists entirely of pairwise compatible arcs, then it is called an \emph{ideal triangulation}, which each triangular region called an \emph{ideal triangle}.
+\begin{figure}[H]
+    \centering
+    \input{figures/IdealTriangles.tex}
+    \caption{Ordinary triangle, two-vertex triangle, self-folded triangle and one-vertex triangle.}
+\end{figure}
+In the figure above we see the four possible types of ideal triangles in a possible ideal triangulation. In this paper we will focus mostly on the first (and perhaps the fourth one too) as the other two require a marked point that is not on any boundary component; which we will often not consider for the sake of length and clarity. 
+\begin{theorem}{\normalfont \cite{Sch}}
+The number of arcs in an ideal triangulation is exactly
+\begin{equation*}
+    n = 6g + 3b + 3p + c - 6;
+\end{equation*}
+where $g$ is the genus of $S$, $b$ is the number of boundary components, $p$ is the number of punctures and $c = |M|-p$ is the number of marked points on $\partial S$.
+\end{theorem}
+\begin{remark}
+Note that each ideal triangulation is connected to all other possible triangulations by a series of \emph{flips}; that is, replacing an arc $\gamma$ by another arc $\Tilde{\gamma}$, so to obtain our new triangulation $\Tilde{T} = (T\backslash\{\gamma\}) \cup \{\Tilde{\gamma}\}$, in the following way; 
+\begin{figure}[H]
+    \centering
+    \input{figures/flipexample}
+    \caption{Example of flip at arc $\gamma$.}
+\end{figure}
+\end{remark}
+
+
+\section{Cluster algebras from surfaces}
+Now that we outlined the necessary definition, we will define the cluster algebra associated to a surface.
+Let $T = \{\tau_1, \dots, \tau_n\}$ be an ideal trangulation of a surface $(S,M)$, and $\mathcal{Q}_T$ a cluster quiver defined as follows.
+The vertices of $\mathcal{Q}_T$ are in bijection with the arcs of $T$; i.e. $\tau_i \mapsto i$. The arrows of $\mathcal{Q}_T$ are determined in the following way; for any triangle $\Delta$ in $T$, we draw an arrow $i \to j$ if $\tau_i$ and $\tau_j$ are sides of $\Delta$ with $\tau_j$ following $\tau_i$ in the clockwise order.
+\begin{figure}[H]
+    \centering
+    \input{figures/SurfaceToQuiver.tex}
+    \caption{Example of triangulated surface (with 1 puncture) and its corresponding quiver.}
+\end{figure}
+In order to define an initial seed, we set the initial cluster $\mathbf{x}_T = \{\tau_1,\dots,\tau_n\}$; and we set $\mathbf{y}_T = \{y_1,\dots,y_n\}$ to be the initial coefficients (vectors) generating the tropical semifield $\mathcal{G}$.
+Then, the cluster algebra $\mathcal{A} = \mathcal{A}(\mathbf{x_T},\mathbf{y}_T,\mathcal{Q}_T)$ is called the \emph{cluster algebra ssociated to the surface $(S,M)$ with principal coefficients in $T$}.
+
+\section{Snake graphs}
+A \emph{snake graph} $\mathcal{S}$ is a graph consisting of \emph{tiles}. A \emph{tile} $G$ is a square graph whose sides are orthogonal to the fixed basis; which we consider to be the standard orthonormal basis of the plane. Each tile will be isomorphic in the sense that side lengths are all equal. 
+
+\begin{figure}[H]
+    \centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+	\node [square={snake square}] at (0,0) (B0) {$G$};
+	\node [text width=4em,font=\tiny,shift={(0,-0.25)},align=center] at (B0.south) {South};
+	\node [text width=4em,font=\tiny,shift={(0,0)},align=left] at (B0.west) {West};
+	\node [text width=4em,font=\tiny,shift={(0,+0.25)},align=center] at (B0.north) {North};
+	\node [text width=4em,font=\tiny,shift={(0,0)},align=right] at (B0.east) {East};
+\end{tikzpicture}    
+\caption{A tile $G$ with sides labeled to denote the orientation}
+\end{figure}
+
+Then, the snake graph $\mathcal{S} = (G_1,\dots,G_d)$ is a connected graph consisting of $d$ tiles $G_1,\dots,G_d$, where the tiles $G_i$ and $G_{i+1}$ share exactly 1 edge, $e_i$; which is either the north or east edge of tile $G_i$.
+Next, we define the \emph{sign function}
+\begin{equation*}
+    f: \{\text{edges of} \  \mathcal{S}\} \to \{+,-\}.
+\end{equation*}
+such that for each tile $G_i$ the following hold;
+\begin{itemize}
+    \item The north and west edge have the same sign,
+    \item The south and east edge have the same sign,
+    \item The sign on the south edge is different than the sign on the north edge.
+\end{itemize}
+The reader may wonder about the purpose of having two, \emph{a priori}, equal representations of a snake graph; however, in section 3, after introducing continued fractions, the sign function will be of particular convenience to us.
+\begin{figure}[H]
+    \centering
+    \input{figures/SnakeGraphsExample2}
+    \caption{Example of snake graph and sign function applied to it.}
+\end{figure}
+
+\section{Labeled snake graphs from surfaces}
+Suppose we now want to construct a snake graph corresponding to an arc on any given triangulated surface. Suppose that $T$ is an ideal triangulation of some surface $(S,M)$; and let $\gamma$ be an arc that is not in $T$, with starting point $s$, and endpoint $e$ (i.e. we are choosing an orientation within our surface), both of which are contained in $M$. 
+\subsection{Weights and expansion formula}
+First we recall a key definition; that of a \emph{matching}. 
+\begin{definition}
+    A \emph{matching} is a collection of edges such that no pair contains a common vertex. A matching is called a \emph{perfect matching} if precisely every vertex is incident with exactly 1 of these edges in the collection. 
+\end{definition}
