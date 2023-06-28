@@ -112,7 +112,7 @@
 \if@generic\else \universityaddress\\ \fi
 \url{\website}{}
 }
-\coverimage{\emph{There are three types of mathematicians; those who can count and those who can't.}}
+\coverimage{\emph{``There are three types of mathematicians; those who can count and those who can't."}}
 \what{}
 \track{\relax}
 \programme{\relax}

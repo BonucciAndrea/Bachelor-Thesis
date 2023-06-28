@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{quiver}
+\usepackage{verbatim}
+\usepackage{standalone}
+\usepackage{lipsum}
+\usepackage{yhmath}
+
+\usepackage{mathrsfs}
+\usepackage{hyperref, showkeys}
+
+\title{Transcript Thesis Presentation}
+
+\newcommand{\click}{\textbf{CLICK}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    \item Hey everyone! My name is Andrea, and the title of my thesis is \emph{Combinatorial aspects of surface Cluster algebras and applications to Frobenius' conjecture}, which I have been doing under the supervision of Ilke.
+    \item First I will begin by giving a brief outline on what exactly Cluster algebras are.
+    \item Cluster algebras were introduced by Sergey Fomin and Andrei Zelevinsky in 2002, in their paper named \emph{Cluster algebra I: Foundations}; who sought to unify and generalize various mathematical structures from different branches of mathematics. 
+    \item While there are many areas of mathematics in which cluster algebras are applicable, the following are some examples. \click In particular, throughout my thesis I will focus mainly on Triangulated Surfaces, Tropical Geometry, Hyperbolic Geometry and Quiver representation. Additionally, A big part of my thesis will involve applications to Number Theory.
+    \item Lets start with defining the space we are working in. We begin with a free abelian group $\mathcal{G}$ with basis $\{y_1,\dots,y_n\}$. \click We then define an additional minimization operation as follows. If we have a product of $y_j^{a_j}$ with $y_j^{b_j}$, then it becomes $y_j^{min(a_j,b_j)}$. \click Here you can see an example; notice that the element $y_3$ has a power of 1 on the left side of the multiplication; and a power of 0 on the other; hence why it disappears. 
+    \item With this operation, $\mathcal{G}$ is known as a \emph{semifield}. \click Then, we consider the group  ring $\mathbb{Z}\mathcal{G}$; which in our case is called a \emph{tropical semifield}. This is precisely the ring of Laurent polynomials with positive coefficients. This is our ambient field. 
+    \item A cluster algebra is determined by its \emph{seeds} through a few rules; \click READ \click READ \click READ. 
+    \item A \emph{quiver} is a directed graph; i.e. a 4-tuple ... \click \click \click Here we can see three examples of quivers; two of which are also known as Cluster quivers; i.e. quivers that do not have self-pointing arrows or 2-cycles.
+    \item Having inital seeds, we can then begin describing the action through which a Cluster algebras is generated. This is called a cluster mutation. A cluster mutation acts on $\mathbf{x}$ via the following. \click Were the left product in the numerator is over all the arrows going into vertex $k$ and the right on is over all the arrows going out of vertex $k$. 
+    \item A mutation also acts on the quiver in the following way; READ \click \click \click \click Here we can see an example of a quiver mutation. BRIEFLY EXPLAIN HOW THE MUTATION IS DONE.
+    \item Now we move onto the statement of Frobenius' conjecture.
+    \item Recall that Markov's equation is given by $x^2 + y^2 + z^2 = 3xyz$. \click Here are some solutions. Fun fact, every other Fibonacci number and Pell number is a Markov number.
+    \item The conjecture states the following; READ. In other words, Frobenius conjectured that a Markov triple is uniquely defined by its largest element. 
+    \item Next we will talk about the direct connection of the conjecture to Cluster algebras.
+    \item So the question is, how does Cluster algebra factor in when thinking about Frobenius' conjecture?
+    \item We begin with the following space. Consider the triangulated punctured torus as the following quotient space. \click  In other words, we identify opposite sides of the square, triangulate it and remove the point (0,0); which via teh equivalece relation is all 4 vertices of the square. We then set a clockwise orientation within each triangle.
+    \item As you can see, we simply have a clockwise cycle within each triangle. Notice that we have precisely 2 arrows going from diagonal 1 to diagonal 3; similarly we have 2 arrows going from diagonal 2 to diagonal 1 and 2 arrows from diagonal 3 to diagonal 2. This allows us to define the following quiver;
+    \item This is also known as Markovs quiver. It is a very special quiver by the following;
+    \item Suppose we apply a mutation at vertex 1; \click then we get that our new variables are as follows. More precisely, recall how a mutation acts on the variables; \click \click 
+    \item In other words, via this mutation, if we apply this map to a markov triple, it yields another markov triple as follows \click \click \click \click Note that mutating vertex 2 or 3 instead of vertex 1 yields a similar map with the same property. 
+    \item The previous slides lead to the observation that via a sequence of mutation we can go from one markov triple to another; which yields the Markov tree.
+    \item Now we move onto the Number theoretic part of my thesis.
+    \item A continued fraction is a way to represent real numbers. \click For example, consider the real numbers $22/7$ and $\sqrt{2}$. Since $22/7$ is equal to $3 + 1/7$, then we can write $22/7$ as the continued fraction $[3,7]$; and similarly, \click we can represent $\sqrt{2}$ as the infinite continued fraction $[1;2,2,\dots]$. Notice that a continued fraction is infinite if and only if it corresponds to an irrational number. 
+    \item Next, we call a continued fraction $[a_1,\dots,a_n]$  \click palindromic if $(a_1,\dots,a_n) = (a_n,\dots,a_1)$ as sequences; exactly like palindromic words. \click moreover, the continued fraction is referred to as \emph{of even length} is $n$ is even. \click Lastly, it is called palindromic of even length if it has the above two properties.
+    \item Now we introduce snake graphs.
+    \item A snake graphs is a graph that consists of tiles; where a tile is the following: \click. Note that each tile has to be oriented. 
+    \item Furthermore, with a snake graph we also have a sign function; i.e. a function that assigns each side of the tile a sign in the following manner; \click first, the north and west edge have the same sign, and \click so do the south and east edge. Moreover, \click the north and south edge have different signs. 
+    \item Here is an example of a snake graph together with its sign function. As you can see all of the previous properties are satisfied. 
+    \item We can now construct a snake graph $\mathcal{S}$ corresponding to a continued fraction via the following sign sequence; \click so we have $a_1$ minus signs followed by $a_2$ plus signs and so on. 
+    \item Then the snake graph of the continued fraction $[a_1,\dots,a_n]$ is the graph with precisely $a_1+\dots+a_n -1$ tiles determined by its sign sequence. 
+    \item For example, consider the fraction $31/7$, with its corresponding continued fraction $[4,2,3]$. \click Then we get the following sign sequence. So we have 4 minus signs, followed by 2 plus signs, followed by 3 minus signs. This yields the following snake graph; \click.
+    \item We then have the following theorem. Suppose $m(\mathcal{S})$ denotes the number of perfect matchings of the snake graph $\mathcal{S}$. Then \click a continued fraction is equal to the number of perfect matchings of the snake graph corresponding to the continued fraction divided by the number of perfect matchigns of the snake graph corresponding to the continued fraction with its first entry removed.
+    \item For example, lets once again take the continued fraction $[4,2,3]$; \click then it yields $31/7$ as required.
+    \item Next, we move onto something called palindromification.
+    \item Given a continued fraction $[a_1,\dots,a_n]$, its palindromification is the continued fraction $[a_n,\dots,a_1,a_1,\dots,a_n]$. This has the following properties; \click First, the snake graph corresponding to the palindromification of a continued fraction has a rotational symmetry at its center tile; for example, \click as you can see if you rotate this snake graph by 180 degree around its center tile, then we obtain the same; indicating that a rotation of 180 degrees is precisely an automorphism. \click Secondly, if our continued fraction is equal to $p_n/q_n$, then \click its palindromification is equal to the following quotient. \click For example, for the continued fraction $[3,1,5] = 23/6$, we have that $p_{n-1} = 4$, $q_{n-1} = 1$, and thus its palindromification, $[5,1,3,3,1,5] = 565/98$ is equal to $(23^2 + 6^2)/(4 \cdot 23 + 1 \cdot 6)$. 
+    \item The palindromification is a particularly useful tool when studying Markov numbers. 
+    \item For the Markov numbers we have the following results; \click first, every Markov number is the numerator of a palindromic continued fraction of even length; and \click secondly every Markov number is the sum of two relatively prime squares. 
+    \item The two previous results allow us to formulate a very strong conjecture that implies Frobenius' conjecture; \click For a Markov number $m$ greater than 2 there exists unique integers $a,b$ with $a<b$ with greatest common divisor equal to $1$ such that $m = a^2 + b^2$, $2a \leq b < 3a$ and the continued fraction corresponding to the quotient $b/a$ consists entirely of $1$'s and $2$'s.
+    \item Thanks for listening!
+
+
+
+
+\end{document}

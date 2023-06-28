@@ -25,9 +25,9 @@
 \begin{luacode*}
 	function signtile(x,y,c)
 		if c==0 then 
-			s='$-$' 
+			s="\\color{red}$-$" 
 		else 
-			s='$+$' 
+			s='\\color{blue}{$+$}' 
 		end 
 		tex.print("\\node[text width=1.5ex,fill=white,align=center] at ("..x..","..y.."){"..s.."};")
 	end
@@ -147,4 +147,4 @@
     },
     square/.default=black
 }
-\pgfkeys{tikz/snake square/.style={black,thin,fill=none}}
+\pgfkeys{tikz/snake square/.style={black,thick,fill=none}}

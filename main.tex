@@ -8,21 +8,65 @@
 \usepackage{multirow}
 \usepackage{float}
 \usepackage{tikz}
-\usepackage{graphicx}
+\usetikzlibrary{backgrounds}
 \usepackage{quiver}
 \usepackage{verbatim}
 \usepackage{standalone}
 \usepackage{lipsum}
+\usepackage{unicode-math}
 \usepackage{yhmath}
+\usepackage{graphicx}
+
+\newcommand{\KP}[1]{%
+  \begin{tikzpicture}[baseline=-\dimexpr\fontdimen22\textfont2\relax]
+  #1
+  \end{tikzpicture}%
+}
+\newcommand{\KPA}{%
+  \KP{\filldraw[color=gray, fill=none, thick] circle (0.3);}%
+}
+\newcommand{\KPB}{%
+  \KP{
+    \draw[color=gray,thick] (-0.3,0.3) -- (0.3,-0.3);
+    \draw[color=gray,thick] (-0.3,-0.3) -- (-0.05,-0.05);
+    \draw[color=gray,thick] (0.05,0.05) -- (0.3,0.3);
+  }%
+}
+\newcommand{\KPC}{%
+  \KP{%
+    \draw[color=gray,thick] (-0.3,0.3) .. controls (0,-0.05) .. (0.3,0.3);
+    \draw[color=gray,thick] (-0.3,-0.3) .. controls (0,0.05) .. (0.3,-0.3);
+  }%
+}
+\newcommand{\KPD}{%
+  \KP{%
+    \draw[color=gray,thick] (-0.3,-0.3) .. controls (0.05,0) .. (-0.3,0.3);
+    \draw[color=gray,thick] (0.3,-0.3) .. controls (-0.05,0) .. (0.3,0.3);
+  }%
+}
+
+
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \textwidth
+  \rightskip\leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+
 
 \usepackage{mathrsfs}
-\usepackage{hyperref, showkeys}
+\usepackage{hyperref}
 \usepackage[
 backend=biber,
 style=alphabetic,
 ]{biblatex}
 \bibliography{Sources}
 \nocite{*}
+
+\pgfdeclarelayer{bg}    % declare background layer
+\pgfsetlayers{bg,main}
 
 \def\s{\ensuremath\mathcal{S}}
 \newcommand{\pal}[1]{{#1}_{\leftrightarrow}}
@@ -49,7 +93,7 @@ style=alphabetic,
 \title{Combinatorial aspects of surface Cluster algebras and applications to Frobenius' conjecture}
 \abstracttitle{Bachelor Thesis}
 \author[a.bonucci@student.vu.nl, 2694276]{Andrea Bonucci}
-
+\supervisor{Dr. {\.{I}}lke {\c{C}}anak{\c{c}}{\i}}
 \input{SnakeGraphGeneratorImages}
 
 \begin{document}
@@ -60,14 +104,38 @@ style=alphabetic,
 \maketitle
 
 \begin{abstract}
-    
+    In this report, we seek to explore various techniques within Cluster algebra and utilize them in order to better understand the behaviour of Markov numbers. We use \emph{palindromification} of continued fractions and connect them to the idea of \emph{snake graph} to then attain a reformulation of Frobenius' conjecture in Cluster algebraic terms. Consequently, we apply \emph{Skein relations} within the natural number lattice $\mathbb{N}\times \mathbb{N}$ to define \emph{left} and \emph{right deformations} around lattice points to provide a few result on the ordering of Markov numbers; and prove a conjecture posed by Aigner in \cite{A}. 
 \end{abstract}
 \newpage 
 \tableofcontents
 \newpage
+\chapter*{Introduction}
+Cluster algebras were first introduced in 2002 by Sergey Fomin and Andrei Zelevinsky in \cite{FZ1}. These have been getting increasingly more attention and are found in many areas of mathematics; such as combinatorics, as we will see throughout this report, representation theory, tropical geometry, and many more. Additionally, there are several applications in other disclipines; for example in theoretical physics, a concept named \emph{Seiberg Duality} \cite{Bao}. 
+
+In the first chapter, we will outline the formal definition of Cluster algebras in purely algebraic terms. We begin by defining the ambient field, a \emph{tropical semifield}; then we describe the three components of a Cluster algebra, namely, the \emph{initial cluster} $\mathbf{x}$, the \emph{initial coefficients} $\mathbf{y}$ and the cluster quiver $\mathcal{Q}$ (a type of directed graph). It is worth noting that Fomin and Zelevinsky first introduced cluster algebras via \emph{skew-symmetric} matrices; which then has an associated quiver. 
+
+From the above, we can then define the process through which \emph{seeds} generate the corresponding cluster algebra; also known as \emph{cluster mutation}. Finally, after providing an example of these different concepts, we state a very important result within Cluster algebras, known as the \emph{Positivity theorem}, or \emph{Positivity conjecture} before it was proven in \cite{LS} for every \emph{skew-symmetric} cluster algebra; and in \cite{GHKK} for the general case of \emph{skew-symmetrizable} cluster algebras.
+
+In chapter 2, we delve deeper into cluster algebras that are of \emph{surface type}; i.e. associated to a pair $(S,M)$, with $S$ a surface and $M$ a set of marked points on the boundary components of $S$. After constructing a \emph{triangulation} $T$ for $(S,M)$, we can consider an \emph{arc} $\gamma$ between two marked points. To this arc, we can then assign a \emph{snake graph}; which will be useful in later chapters.
+
+In chapter 3, we move to a more number theoretic perspective and begin by explaining the idea of \emph{continued fractions}. To each continued fraction $[a_1,\dots,a_n]$, the authors in \cite{CS1} described a way to assign a \emph{sign function}, which then can be used to construct a corresponding snake graph. Consequently, we will describe the idea of the \emph{palindromification} $[a_n,\dots,a_1,a_1,\dots,a_n]$ of a continued fraction; and provide a few results about it to then apply to the theory of Markov numbers. 
+
+Finally, in chapter 4, we state Frobenius' conjecture; namely that every \emph{Markov triple} (a solution to Markov's equation) is uniquely determined by its largest element. Moreover, via the triangulated punctured torus, we connect the solutions to Markov's equation to the idea of cluster algebras; more precisely, by using mutations, we construct a map that takes a Markov triple and outputs another Markov triple. 
+
+By examining slopes $p/q$, with $p<q$ and gcd$(p,q) = 1$ in the natural number lattice $\mathbb{N}\times \mathbb{N}$, we can assign to each a Markov number denoted $m_{p/q}$. This will be done by constructing a snake graph corresponding to the slope (via its \emph{Christoffel path}); and calculating the number of perfect matching; which Frobenius showed always is a Markov number. This will then give us the necessary tools to find a reformulation for Frobenius' conjecture in purely cluster algebraic terms.
+
+In the last part of chapter 5, by using \emph{Skein relations} we describe the concepts of a \emph{left} and \emph{right deformation} of an arc $\gamma$ between two lattice points in $\mathbb{N}\times \mathbb{N}$. Consequently, we will then provide some results which will ultimately be useful to prove a conjecture posed by Martin Aigner on the ordering of Markov numbers in \cite{A}.
+
+
+
 \include{ChapterClusterAlgebraIntro}
 \include{ChapterClusAlgebraSurfType}
 \include{ChapterContinuedFractions}
 \include{ChapterFrobeniusConjecture}
+\chapter{Conclusion}
+In this paper we looked at the foundational ideas of Cluster algebras, specifically those of surface type; and we discussed the combinatorial aspects such as snake graphs and Skein relations. Via continued fractions we described the concept of palindromification; which we used to construct a framework for understanding how Markov numbers relate to palindromic continued fractions; such as Frobenius' result that states every Markov number is the numerator of the palindromic continued fraction of even length consisting of only $1$s and $2$s (with a few other restrictions). We were then able to prove different results on the structure of each Markov number; such as that every Markov number is the sum of two relatively prime squares. 
+
+Using the once punctured torus, we described a deep connection between solutions of Markov's equation and Cluster algebras, by constructing a map that send a Markov triple to another Markov triple. Via this connection, we stated a Conjecture, purely in Cluster algebraic terms, that is equivalent to Frobenius' conjecture. Finally, thanks to Skein relations, we were able to generalize the idea of a slope on the once punctured torus lattice to slopes with not necessarily relatively prime coordinates, via the concepts of left and right deformations. Using Ptolemy's relations, we were then able to prove one of Aigner's conjectures on the ordering of Markov numbers. In conclusion, we had a close look at how the Markov numbers behave individually as well as in groups; which will hopefully, one day, lead us to a clearer understanding of Frobenius' conjecture and Markov's equation. 
+ 
 \printbibliography
 \end{document}

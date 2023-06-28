@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+\begin{pgfonlayer}{bg}
+    \clip (0,0) rectangle (9cm,7cm);
+    \coordinate (Origin)   at (0,0);
+    \coordinate (XAxisMin) at (0,0);
+    \coordinate (XAxisMax) at (9,0);
+    \coordinate (YAxisMin) at (0,0);
+    \coordinate (YAxisMax) at (0,7);
+    \draw[style=help lines] (-14,-14) grid[step=1cm] (14,14);
+\end{pgfonlayer}   
+
+    \draw [very thick, black,-latex] (XAxisMin) -- (XAxisMax);% Draw x axis
+     \draw [very thick, black,-latex] (YAxisMin) -- (YAxisMax);% Draw y axis
+    \foreach \x in {0,1,...,9}{                           % Two indices running over each
+    \foreach \y in {0,1,...,7}{                       % node on the grid we have drawn 
+    \node[draw,circle,inner sep=0.6pt,fill] at (\x,\y) {}; % Places a dot at those points
+    
+    \foreach \a in {0,1,...,8}{
+    \foreach \b in {0,1,...,6}{
+    \draw[gray, very thin] (\a, \b+1) -- (\a+1,\b);
+
+
+    \draw[thick] (0,0) -- (8,7) -- (9,7) -- (9,6) -- (0,0);
+    \draw[red, thick] (8,7) -- (9,6);
+    \draw[blue,thick] (0,0) -- (9,7); 
+    \draw[thick] (4,0) -- (9,7); 
+    \draw (-0.5,0) node [anchor=north west][inner sep=0.75pt]    {$A$};
+    \draw (7.85,7.5) node [anchor=north west][inner sep=0.75pt]    {$B$};
+    \draw (9,7.5) node [anchor=north west][inner sep=0.75pt]    {$C$};
+    \draw (9.25,6.2) node [anchor=north west][inner sep=0.75pt]    {$D$};
+    \draw (4,-0.2) node [anchor=north west][inner sep=0.75pt]    {$E$};
+}
+}
+}
+}
+\end{tikzpicture}

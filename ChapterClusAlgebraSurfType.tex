@@ -50,15 +50,15 @@ The vertices of $\mathcal{Q}_T$ are in bijection with the arcs of $T$; i.e. $\ta
 \begin{figure}[H]
     \centering
     \input{figures/SurfaceToQuiver.tex}
-    \caption{Example of triangulated surface (with 1 puncture) and its corresponding quiver.}
+    \caption{Example of triangulated surface (with 2 boundary components, also known as an \emph{annulus}) and its corresponding quiver.}
 \end{figure}
 In order to define an initial seed, we set the initial cluster $\mathbf{x}_T = \{\tau_1,\dots,\tau_n\}$; and we set $\mathbf{y}_T = \{y_1,\dots,y_n\}$ to be the initial coefficients (vectors) generating the tropical semifield $\mathcal{G}$.
-Then, the cluster algebra $\mathcal{A} = \mathcal{A}(\mathbf{x_T},\mathbf{y}_T,\mathcal{Q}_T)$ is called the \emph{cluster algebra ssociated to the surface $(S,M)$ with principal coefficients in $T$}.
+Then, the cluster algebra $\mathcal{A} = \mathcal{A}(\mathbf{x_T},\mathbf{y}_T,\mathcal{Q}_T)$ is called the \emph{cluster algebra associated to the surface $(S,M)$ with principal coefficients in $T$}.
 
 \section{Snake graphs}
 A \emph{snake graph} $\mathcal{S}$ is a graph consisting of \emph{tiles}. A \emph{tile} $G$ is a square graph whose sides are orthogonal to the fixed basis; which we consider to be the standard orthonormal basis of the plane. Each tile will be isomorphic in the sense that side lengths are all equal. 
 
-\begin{figure}[H]
+\begin{figure}[H]\label{tile}
     \centering
 \begin{tikzpicture}[x=1cm,y=1cm]
 	\node [square={snake square}] at (0,0) (B0) {$G$};
@@ -89,9 +89,359 @@ The reader may wonder about the purpose of having two, \emph{a priori}, equal re
 \end{figure}
 
 \section{Labeled snake graphs from surfaces}
-Suppose we now want to construct a snake graph corresponding to an arc on any given triangulated surface. Suppose that $T$ is an ideal triangulation of some surface $(S,M)$; and let $\gamma$ be an arc that is not in $T$, with starting point $s$, and endpoint $e$ (i.e. we are choosing an orientation within our surface), both of which are contained in $M$. 
-\subsection{Weights and expansion formula}
-First we recall a key definition; that of a \emph{matching}. 
-\begin{definition}
-    A \emph{matching} is a collection of edges such that no pair contains a common vertex. A matching is called a \emph{perfect matching} if precisely every vertex is incident with exactly 1 of these edges in the collection. 
-\end{definition}
+Suppose we now want to construct a snake graph corresponding to an arc on any given triangulated surface. Suppose that $T$ is an ideal triangulation of some surface $(S,M)$; and let $\gamma$ be an arc that is not in $T$, with starting point $s$, and endpoint $t$ (i.e. we are choosing an orientation within our surface), both of which are contained in $M$. 
+\begin{figure}[H]
+    \centering
+\begin{tikzpicture} 
+    %\begin{pgfonlayer}{bg}
+    \clip (0,0) rectangle (12cm,6cm);
+    %\draw[style=help lines] (-14,-14) grid[step=1cm] (14,14);
+    %\end{pgfonlayer}
+
+    \draw (1,3) -- (3,5);
+    \draw (1,3) -- (3,1);
+    \draw (3,5) -- (10,5);
+    \draw (3,1) -- (10,1);
+    \draw (10,5) -- (12,3);
+    \draw (10,1) -- (12,3);
+
+    \node[draw,circle,inner sep=0.5pt,fill, label=left : {\small $s$}] at (1, 3) {};
+    \node[draw,circle,inner sep=0.5pt,fill, label=right : {\small $t$}] at (12,3) {};
+
+    \draw[red,thick] (1,3) -- (12,3) node[label= above:{\gamma},pos = 0.5] {};
+    \draw (3,1) -- (3,5); 
+    \draw (3,1) -- (5,5);
+    \draw (5,5) -- (5,1);
+    \draw (5,1) -- (7,5);
+    \draw (7,5) -- (10,1);
+    \draw (7,5) -- (7.5,1);
+    \draw (10,1) -- (10,5);
+
+    \node[draw = none,label = $\Delta_0$] at (2.5,3) {};
+    \node[draw=none,label = $\Delta_1$] at (3.75,3.5) {};
+    \node[draw=none,label = $\Delta_2$] at (4.25,1.5) {};
+    \node[draw=none,label = $\Delta_3$] at (5.75,3.5) {};
+    \node[draw=none,label = $\Delta_4$] at (6.5,1.5) {};
+    \node[draw=none,label = $\Delta_5$] at (8.25,1.5) {};
+    \node[draw=none,label = $\Delta_6$] at (9,3.5) {};
+    \node[draw=none,label = $\Delta_7$] at (10.5,3.25) {};
+
+    \node[draw = none, label = $e_1$] at (4,5) {};
+    \node[draw = none, label = $e_2$] at (4,0) {};
+    \node[draw = none, label = $e_3$] at (6,5) {};
+    \node[draw = none, label = $e_4$] at (6.25,0) {};
+    \node[draw = none, label = $e_5$] at (8.5,0) {};
+    \node[draw = none, label = $e_6$] at (8.5,5) {};
+
+    \node[draw = none, label = $\tau_1$] at (2.75,1.75) {};
+    \node[draw = none, label = $\tau_2$] at (3.35,2) {};
+    \node[draw = none, label = $\tau_3$] at (4.75,2) {};
+    \node[draw = none, label = $\tau_4$] at (5.35,2) {};
+    \node[draw = none, label = $\tau_5$] at (7,1.75) {};
+    \node[draw = none, label = $\tau_6$] at (9.25,1) {};
+    \node[draw = none, label = $\tau_7$] at (9.75,2) {};
+
+    \node[draw = none, label = $\color{red}>$] at (6.5,2.59) {};
+
+    
+    
+\end{tikzpicture}
+    
+\end{figure}
+%\subsection{Weights and expansion formula}
+%First we recall a key definition; that of a \emph{matching}. 
+%\begin{definition}
+    %A \emph{matching} is a collection of edges such that no pair contains a common vertex. A matching is called a \emph{perfect matching} if precisely every vertex is incident with exactly 1 of these edges in the collection. 
+%\end{definition}
+Let $s = p_0,p_1,\dots,p_{d+1} = t$ be the points, in order, in which $\gamma$ intersects any element of $T$. Then for $i = 1,\dots,d$, let $\tau_i$ be the arc in $T$ containing the point $p_i$; and let $\Delta_{i-1}, \Delta_i$ be the two ideal triangles adjacent to $\tau_i$. Furthermore, for all $i$, the arcs $\tau_i,\tau_{i+1}$ form two sides of the ideal triangle $\Delta_i$; where we denote the third arc by $e_i$. Finally, we let $G_i$ be the quadrilateral in $T$ that contains the arc $\tau_i$ as a diagonal; then $G_i$ is precisely a tile as \ref{tile}. 
+
+We can additionally assign a sign function $f$ on the edges $e_1,\dots,e_d$ by
+\begin{equation*}
+    f(e_j) = \begin{cases}
+        +1 \text{ if $e_j$ lies on the right of $\gamma$ when passing through $\Delta_j$;} \\
+        -1 \text{ otherwise.}
+    \end{cases}
+\end{equation*}
+Then, the labeled snake graph $\s_{\gamma} = (G_1,\dots,G_d)$ with sign function $f$ is the \emph{snake graph associated to the arc $\gamma$}. Next, define the \emph{weight} $x(e)$, where $e$ is any edge of $\s_{\gamma}$, to be the cluster variable associated with the arc $\tau(e)$ of $T$. 
+\section{Perfect matchings, Height and the Expansion formula}
+Recall that a \emph{perfect matching} $P$ of a graph $G$ is a collection of edges in which every vertex of $G$ is incident with exactly $1$ edge in $P$. We denote the set of all perfect matchings of $G$ by $\mathcal{M}(G)$. Moreover, note that every snake graph has precisely 2 perfect matchings that contain boundary edges only. We denote these by $P_-$ and $P_+$\footnote{The choice of which is $P_-$ will only make a difference in the setting of Cluster algebras with non-trivial coefficients.}. Then for a matching $P$ we define $P_-\ominus P = (P_- \cup P)\backslash(P_- \cap P)$ to be the symmetric difference of $P_-$ and $P$. In other words, $P_-\ominus P $ is the set of boundary edges of a subgraph $\s_P$, possibly disconnected and made of tiles $G_i$; i.e. 
+\begin{equation*}
+    \s_P = \bigcup_{i} G_i.
+\end{equation*}
+We then define the \emph{height monomial} of $P$ by 
+\begin{equation*}
+    y(P) = \prod_{G_i \text{ a tile in } \s_P}y_i.
+\end{equation*}
+Consider an arbitrary marked surface $(S,M)$, with triangulation $T = \{\tau_1,\dots,\tau_n\}$, and we let $\mathcal{A} = \mathcal{A}(\mathbf{x}_T,\mathbf{y}_T,\mathcal{Q}_T)$ be its corresponding Cluster algebra; where $\mathbf{x}_T=(x_1,\dots,x_n)$ correspond to the diagonals in the triangulation $T$, and $\mathbf{y}_T = (y_1,\dots,y_m)$ correspond to the boundary arcs of the marked surface, and are also the basis for the corresponding tropical semifield. In  \cite{MSW}, the authors proved the following;
+\begin{theorem}
+    Let $\gamma$ be an arc not in the triangulation $T$, such that it intersects the diagonals $\{\tau_{i_1},\dots,\tau_{i_d}\}$. Then the cluster variable $x_{\gamma}$ is equal to 
+    \begin{equation}\label{ExpansionFormula}
+        x_{\gamma} = \dfrac{1}{\text{cross}(\gamma)} \sum_{P \ \in \ \mathcal{M}(\s_{\gamma})} x(P)y(P).
+    \end{equation} 
+\end{theorem}
+Where $x(P) = \prod_{e \in P}x(e)$ is the weight of $P$ and $y(p)$ is the height of $P$. Moreover, cross$(\gamma)$ is the monomial consisting of the cluster variables that are associated to the arcs $\{\tau_{i_j}\}_{j = 1}^d$; in other words, $\text{cross}(\gamma) = \prod_{j = 1}^dx_{i_j}$. In addition, the authors showed that if we iterate this process over all possible arcs $\gamma$ in the surface $(S,M)$, these $x_{\gamma}$ generate the corresponding Cluster algebra.
+
+\begin{figure}[H]\label{ExpansionExample}
+    \centering
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,437); %set diagram left start at 0, and has height of 437
+
+%Straight Lines [id:da4908232703769615] 
+\draw    (90.5,210) -- (119.5,250) ;
+%Straight Lines [id:da17650145113834725] 
+\draw    (90.5,210) -- (121.5,171) ;
+%Straight Lines [id:da7174102064637746] 
+\draw    (121.5,171) -- (170.5,170) ;
+%Straight Lines [id:da8596665591342445] 
+\draw    (119.5,250) -- (168.5,249) ;
+%Straight Lines [id:da6279303631093601] 
+\draw    (199.5,209.95) -- (170.37,170.04) ;
+%Straight Lines [id:da7242109050720578] 
+\draw    (199.5,209.95) -- (168.63,249.05) ;
+%Straight Lines [id:da03863244955219047] 
+\draw    (121.5,171) -- (119.5,250) ;
+%Straight Lines [id:da31854017369699694] 
+\draw    (121.5,171) -- (168.5,249) ;
+%Straight Lines [id:da47134283434636637] 
+\draw    (121.5,171) -- (199.5,209.95) ;
+%Straight Lines [id:da5992871763576858] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (90.5,210) -- (168.71,170.89) ;
+\draw [shift={(170.5,170)}, rotate = 153.43] [fill={rgb, 255:red, 255; green, 0; blue, 0 }  ,fill opacity=1 ][line width=0.08]  [draw opacity=0] (12,-3) -- (0,0) -- (12,3) -- cycle    ;
+%Shape: Square [id:dp11810124584691684] 
+\draw   (246.63,208.3) -- (276.33,208.3) -- (276.33,238) -- (246.63,238) -- cycle ;
+%Shape: Square [id:dp13699116965413383] 
+\draw   (276.33,208.3) -- (306.03,208.3) -- (306.03,238) -- (276.33,238) -- cycle ;
+%Shape: Square [id:dp1790172677132683] 
+\draw   (276.33,178.6) -- (306.03,178.6) -- (306.03,208.3) -- (276.33,208.3) -- cycle ;
+%Shape: Square [id:dp2883938512500389] 
+\draw   (361.88,163.78) -- (377.86,163.78) -- (377.86,179.75) -- (361.88,179.75) -- cycle ;
+%Shape: Square [id:dp7088947878360049] 
+\draw   (377.86,163.78) -- (393.84,163.78) -- (393.84,179.75) -- (377.86,179.75) -- cycle ;
+%Shape: Square [id:dp3954910092087409] 
+\draw   (377.86,147.8) -- (393.84,147.8) -- (393.84,163.78) -- (377.86,163.78) -- cycle ;
+%Shape: Rectangle [id:dp179337128236425] 
+\draw   (427.39,181.35) -- (443.37,181.35) -- (443.37,197.33) -- (427.39,197.33) -- cycle ;
+%Shape: Rectangle [id:dp839678338902704] 
+\draw   (443.37,181.35) -- (459.34,181.35) -- (459.34,197.33) -- (443.37,197.33) -- cycle ;
+%Shape: Square [id:dp03950570157166866] 
+\draw   (443.37,165.37) -- (459.34,165.37) -- (459.34,181.35) -- (443.37,181.35) -- cycle ;
+%Shape: Square [id:dp6368269407485009] 
+\draw   (361.88,221.29) -- (377.86,221.29) -- (377.86,237.27) -- (361.88,237.27) -- cycle ;
+%Shape: Square [id:dp5080247361620098] 
+\draw   (377.86,221.29) -- (393.84,221.29) -- (393.84,237.27) -- (377.86,237.27) -- cycle ;
+%Shape: Square [id:dp3148822004848474] 
+\draw   (377.86,205.32) -- (393.84,205.32) -- (393.84,221.29) -- (377.86,221.29) -- cycle ;
+%Shape: Rectangle [id:dp447116954358052] 
+\draw   (427.39,235.67) -- (443.37,235.67) -- (443.37,251.65) -- (427.39,251.65) -- cycle ;
+%Shape: Square [id:dp4061650684840712] 
+\draw   (443.37,235.67) -- (459.34,235.67) -- (459.34,251.65) -- (443.37,251.65) -- cycle ;
+%Shape: Square [id:dp7947789399156008] 
+\draw   (443.37,219.7) -- (459.34,219.7) -- (459.34,235.67) -- (443.37,235.67) -- cycle ;
+%Straight Lines [id:da8786639629522955] 
+\draw    (403.74,160.9) -- (422.6,179.75) ;
+%Straight Lines [id:da09557684843452541] 
+\draw    (403.74,212.03) -- (422.6,230.88) ;
+%Straight Lines [id:da7301540036749984] 
+\draw    (421,189.34) -- (403.42,205.32) ;
+%Straight Lines [id:da9619766876540269] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (361.88,163.78) -- (377.86,163.78) ;
+%Straight Lines [id:da6633598084478148] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (361.88,179.75) -- (377.86,179.75) ;
+%Straight Lines [id:da867888427891212] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (377.86,147.8) -- (393.84,147.8) ;
+%Straight Lines [id:da591102205651237] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (443.37,165.37) -- (459.34,165.37) ;
+%Straight Lines [id:da6749513848128621] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (377.86,205.32) -- (393.84,205.32) ;
+%Straight Lines [id:da7958887267913386] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (377.86,221.29) -- (393.84,221.29) ;
+%Straight Lines [id:da4580741088081952] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (377.86,237.27) -- (393.84,237.27) ;
+%Straight Lines [id:da08524721193125528] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (443.37,251.65) -- (459.34,251.65) ;
+%Straight Lines [id:da7449561570332422] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (393.94,179.65) -- (393.84,163.78) ;
+%Straight Lines [id:da7201215013298098] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (361.99,237.16) -- (361.88,221.29) ;
+%Straight Lines [id:da9147778038385569] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (427.39,197.33) -- (427.28,181.46) ;
+%Straight Lines [id:da1736214385948459] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (443.37,197.33) -- (443.26,181.46) ;
+%Straight Lines [id:da7301284550283822] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (459.34,197.33) -- (459.24,181.46) ;
+%Straight Lines [id:da8545909194796913] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (443.37,235.67) -- (443.26,219.8) ;
+%Straight Lines [id:da4475029716801513] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (459.45,235.57) -- (459.34,219.7) ;
+%Straight Lines [id:da433658880536243] 
+\draw [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ]   (427.5,251.54) -- (427.39,235.67) ;
+
+
+% Text Node
+\draw (140,186.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.96,0,0}{\gamma }$};
+% Text Node
+\draw (90,224.4) node [anchor=north west][inner sep=0.75pt]    {$a$};
+% Text Node
+\draw (96,169.4) node [anchor=north west][inner sep=0.75pt]    {$b$};
+% Text Node
+\draw (142,151.4) node [anchor=north west][inner sep=0.75pt]    {$c$};
+% Text Node
+\draw (191,173.4) node [anchor=north west][inner sep=0.75pt]    {$d$};
+% Text Node
+\draw (186,228.4) node [anchor=north west][inner sep=0.75pt]    {$e$};
+% Text Node
+\draw (136,253.4) node [anchor=north west][inner sep=0.75pt]    {$f$};
+% Text Node
+\draw (122,223.4) node [anchor=north west][inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (161,216.4) node [anchor=north west][inner sep=0.75pt]    {$2$};
+% Text Node
+\draw (175,201.4) node [anchor=north west][inner sep=0.75pt]    {$3$};
+% Text Node
+\draw (256.13,214.38) node [anchor=north west][inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (285.88,214.38) node [anchor=north west][inner sep=0.75pt]    {$2$};
+% Text Node
+\draw (285.88,185.38) node [anchor=north west][inner sep=0.75pt]    {$3$};
+% Text Node
+\draw (236.88,214.38) node [anchor=north west][inner sep=0.75pt]    {$b$};
+% Text Node
+\draw (255.88,239.38) node [anchor=north west][inner sep=0.75pt]    {$a$};
+% Text Node
+\draw (255.88,192.38) node [anchor=north west][inner sep=0.75pt]    {$2$};
+% Text Node
+\draw (265.88,184.38) node [anchor=north west][inner sep=0.75pt]    {$2$};
+% Text Node
+\draw (270.88,212.38) node [anchor=north west][inner sep=0.75pt]    {$f$};
+% Text Node
+\draw (284.88,237.38) node [anchor=north west][inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (286.88,202.38) node [anchor=north west][inner sep=0.75pt]    {$e$};
+% Text Node
+\draw (306.03,214.7) node [anchor=north west][inner sep=0.75pt]    {$3$};
+% Text Node
+\draw (306.03,184) node [anchor=north west][inner sep=0.75pt]    {$d$};
+% Text Node
+\draw (286.88,163.05) node [anchor=north west][inner sep=0.75pt]    {$c$};
+% Text Node
+\draw (343.75,151.65) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$x_{2} x_{3}$};
+% Text Node
+\draw (431.75,151.65) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$x_{3} y_{1}$};
+% Text Node
+\draw (355.99,239.56) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$x_{1} y_{1} y_{2}$};
+% Text Node
+\draw (409.99,254.56) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$x_{1} x_{2} y_{1} y_{2} y_{3}$};
+% Text Node
+\draw (410.65,162.45) node [anchor=north west][inner sep=0.75pt]  [font=\tiny,color={rgb, 255:red, 108; green, 98; blue, 98 }  ,opacity=0.58 ]  {$y_{1}$};
+% Text Node
+\draw (398.65,189.45) node [anchor=north west][inner sep=0.75pt]  [font=\tiny,color={rgb, 255:red, 108; green, 98; blue, 98 }  ,opacity=0.58 ]  {$y_{2}$};
+% Text Node
+\draw (412.65,214.45) node [anchor=north west][inner sep=0.75pt]  [font=\tiny,color={rgb, 255:red, 108; green, 98; blue, 98 }  ,opacity=0.58 ]  {$y_{3}$};
+
+
+\end{tikzpicture}
+
+\caption{In this figure we have a triangulated hexagon and an arc $\gamma$ (left), with its corresponding labeled snake graph $\s_{\gamma}$(center); and its perfect matchings with their corresponding monomials calculated through the expansion formula \ref{ExpansionFormula}.}
+\end{figure}
+
+To better explain how the height monomial works, we can see in the above figure that from the top left perfect matching to the top right one, we are rotating tile 1, which gives the $y_1$ term. To then go to the bottom left, we rotate tile 2, which yields the term $y_2$. Finally, to go from bottom left to bottom right, we rotate tile 3 which yields the $y_3$ term. Moreover, the weight is calculated by looking at which edges are contained in the perfect matching. For example, in the top left perfect matching, we see that it contains edge 2 and 3 of our triangulation; these yield the $x_2$ and $x_3$ terms.
+
+Finally, from Figure 2.7, we obtain that
+\begin{equation*}
+    x_{\gamma} = \dfrac{x_2x_3 + x_3y_1 + x_1y_1y_2 + x_1x_2y_1y_2y_3}{x_1x_2x_3}.
+\end{equation*}
+
+In the case of triangulated polygons, it is clear that there are finitely many arcs, up to isotopy; whilst in the case of, for example, an annulus, there are infinitely many arcs; e.g. we can have a curve that loops around the inner boundary component $n$ times. This is precisely why their corresponding Cluster algebras are finite and infinite, respectively. 
+
+\section{Skein relations}
+Suppose we have two arcs $\gamma_1,\gamma_2$ such that they intersect at some point $x$. Then we can define a concept called \emph{smoothing at $x$}; which is a collection of pairs $\{\gamma_3,\gamma_4\}$ and $\{\gamma_5,\gamma_6\}$ obtained from $\{\gamma_1,\gamma_2\}$ by replacing the crossing \KPB; in a small neighborhood of $x$, with the pair \KPC and \KPD. 
+\begin{figure}[H]
+    \centering
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Circle [id:dp7164727092292058] 
+\draw  [fill={rgb, 255:red, 228; green, 227; blue, 188 }  ,fill opacity=1 ] (63,133.8) .. controls (63,126.23) and (69.13,120.1) .. (76.7,120.1) .. controls (84.27,120.1) and (90.4,126.23) .. (90.4,133.8) .. controls (90.4,141.37) and (84.27,147.5) .. (76.7,147.5) .. controls (69.13,147.5) and (63,141.37) .. (63,133.8) -- cycle ;
+%Curve Lines [id:da4188364150873798] 
+\draw    (29.9,136.15) .. controls (38.4,146.65) and (170.9,185.15) .. (61.4,94.15) ;
+%Curve Lines [id:da7397926385822463] 
+\draw    (81.4,172.65) .. controls (35.4,117.15) and (42.2,92.35) .. (122.9,133.15) ;
+%Straight Lines [id:da5533429251019936] 
+\draw    (174.4,91.15) -- (250.8,140.35) ;
+%Curve Lines [id:da9637986309064092] 
+\draw    (146.5,147.65) .. controls (369.1,175.8) and (62.8,28.85) .. (218,186.65) ;
+%Curve Lines [id:da5730466699163983] 
+\draw    (307.1,98.95) .. controls (352.52,118.28) and (351.3,147.6) .. (351.3,178.6) ;
+%Curve Lines [id:da377050407824876] 
+\draw    (282.1,142.2) .. controls (322.1,166.2) and (336.3,160.54) .. (378.1,136.2) ;
+%Straight Lines [id:da4567118907128783] 
+\draw    (172.4,178.15) -- (248.8,227.35) ;
+%Straight Lines [id:da9944916425980186] 
+\draw    (155.4,227.15) -- (231.8,276.35) ;
+%Shape: Circle [id:dp4153786288701671] 
+\draw   (176.2,224.68) .. controls (176.2,212.46) and (186.11,202.55) .. (198.32,202.55) .. controls (210.54,202.55) and (220.45,212.46) .. (220.45,224.68) .. controls (220.45,236.89) and (210.54,246.8) .. (198.32,246.8) .. controls (186.11,246.8) and (176.2,236.89) .. (176.2,224.68) -- cycle ;
+%Curve Lines [id:da007991355624611951] 
+\draw    (278.7,230.6) .. controls (332.7,164.3) and (360.7,230.3) .. (323.7,262.6) ;
+%Straight Lines [id:da05879559895469377] 
+\draw    (291.4,175.15) -- (367.8,224.35) ;
+%Curve Lines [id:da694044951364646] 
+\draw    (437.24,184.34) .. controls (489.7,249.3) and (434.7,257.3) .. (400.72,225.76) ;
+%Straight Lines [id:da6309735851468482] 
+\draw    (491.06,202.76) -- (434.16,273.61) ;
+%Straight Lines [id:da32536832233258217] 
+\draw    (515.1,220) -- (593.1,272) ;
+%Straight Lines [id:da04214537825490794] 
+\draw    (540.4,185.15) -- (616.8,234.35) ;
+%Shape: Circle [id:dp055172114017479124] 
+\draw  [fill={rgb, 255:red, 228; green, 227; blue, 188 }  ,fill opacity=1 ] (184,133.8) .. controls (184,126.23) and (190.13,120.1) .. (197.7,120.1) .. controls (205.27,120.1) and (211.4,126.23) .. (211.4,133.8) .. controls (211.4,141.37) and (205.27,147.5) .. (197.7,147.5) .. controls (190.13,147.5) and (184,141.37) .. (184,133.8) -- cycle ;
+%Shape: Circle [id:dp06546394326732974] 
+\draw  [fill={rgb, 255:red, 228; green, 227; blue, 188 }  ,fill opacity=1 ] (304,133.8) .. controls (304,126.23) and (310.13,120.1) .. (317.7,120.1) .. controls (325.27,120.1) and (331.4,126.23) .. (331.4,133.8) .. controls (331.4,141.37) and (325.27,147.5) .. (317.7,147.5) .. controls (310.13,147.5) and (304,141.37) .. (304,133.8) -- cycle ;
+%Shape: Circle [id:dp10396248031580357] 
+\draw  [fill={rgb, 255:red, 228; green, 227; blue, 188 }  ,fill opacity=1 ] (184.63,224.68) .. controls (184.63,217.11) and (190.76,210.98) .. (198.32,210.98) .. controls (205.89,210.98) and (212.02,217.11) .. (212.02,224.68) .. controls (212.02,232.24) and (205.89,238.37) .. (198.32,238.37) .. controls (190.76,238.37) and (184.63,232.24) .. (184.63,224.68) -- cycle ;
+%Shape: Circle [id:dp10282109383153959] 
+\draw  [fill={rgb, 255:red, 228; green, 227; blue, 188 }  ,fill opacity=1 ] (304,224.8) .. controls (304,217.23) and (310.13,211.1) .. (317.7,211.1) .. controls (325.27,211.1) and (331.4,217.23) .. (331.4,224.8) .. controls (331.4,232.37) and (325.27,238.5) .. (317.7,238.5) .. controls (310.13,238.5) and (304,232.37) .. (304,224.8) -- cycle ;
+%Shape: Circle [id:dp6810690428961315] 
+\draw  [fill={rgb, 255:red, 228; green, 227; blue, 188 }  ,fill opacity=1 ] (424,223.8) .. controls (424,216.23) and (430.13,210.1) .. (437.7,210.1) .. controls (445.27,210.1) and (451.4,216.23) .. (451.4,223.8) .. controls (451.4,231.37) and (445.27,237.5) .. (437.7,237.5) .. controls (430.13,237.5) and (424,231.37) .. (424,223.8) -- cycle ;
+%Shape: Circle [id:dp8686972692006888] 
+\draw  [fill={rgb, 255:red, 228; green, 227; blue, 188 }  ,fill opacity=1 ] (545,223.8) .. controls (545,216.23) and (551.13,210.1) .. (558.7,210.1) .. controls (566.27,210.1) and (572.4,216.23) .. (572.4,223.8) .. controls (572.4,231.37) and (566.27,237.5) .. (558.7,237.5) .. controls (551.13,237.5) and (545,231.37) .. (545,223.8) -- cycle ;
+
+% Text Node
+\draw (133.4,123.75) node [anchor=north west][inner sep=0.75pt]    {$=$};
+% Text Node
+\draw (266.2,124.4) node [anchor=north west][inner sep=0.75pt]    {$+$};
+% Text Node
+\draw (134,215.4) node [anchor=north west][inner sep=0.75pt]    {$=$};
+% Text Node
+\draw (268.2,233.4) node [anchor=north west][inner sep=0.75pt]    {$+$};
+% Text Node
+\draw (378.2,229.4) node [anchor=north west][inner sep=0.75pt]    {$+$};
+% Text Node
+\draw (499.2,226.4) node [anchor=north west][inner sep=0.75pt]    {$+$};
+
+
+\end{tikzpicture}
+
+
+\caption{Example of a smoothing process.}
+\end{figure}
+In \cite{MW}, the authors proved the following; also known as the \emph{Skein relations};
+\begin{theorem}[Skein relations]\label{Skeinrelations}
+    If $\{\gamma_3,\gamma_4\}$ and $\{\gamma_5,\gamma_6\}$ are curves obtained from $\{\gamma_1,\gamma_2\}$ through a smoothing process, then 
+    \begin{equation*}
+        x_{\gamma_1}x_{\gamma_2} = y_{34}x_{\gamma_3}x_{\gamma_4} + y_{56}x_{\gamma_5}x_{\gamma_6};
+    \end{equation*}
+    for some $y_{34},y_{56}$ in $\mathcal{G}$ and $x_{\gamma_i}$ is the cluster algebra element corresponding to the arc $\gamma_i$. Moreover, we  if we apply this to a self-crossing curve $\gamma$, through which we obtain $\gamma_1$ and $\gamma_2$, then
+    \begin{equation*}
+        x_{\gamma} = y_1x_{\gamma_1} + y_2x_{\gamma_2};
+    \end{equation*}
+    for some $y_1,y_2$ in $\mathcal{G}$. 
+\end{theorem}
+It turns out that, by using Skein relations, we find that a product of cluster variables corresponds to an arc in the surface. If we let $\mathcal{B}$ be the collection of all the curves that arise by applying the smoothing process to all possible curves, we get that $\mathcal{B}$ forms a basis for the cluster algebra $\mathcal{A} = \mathcal{A}(\mathbf{x},\mathbf{y},\mathcal{Q})$. This has been proven in \cite{MSW}.
