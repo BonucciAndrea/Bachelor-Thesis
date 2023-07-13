@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{asymptote}
 \usepackage{amsthm}
 \usepackage{pgfplots}
 \usepackage{mathtools}
@@ -91,9 +92,10 @@ style=alphabetic,
 \newtheorem{remark}[theorem]{Remark}
 
 \title{Combinatorial aspects of surface Cluster algebras and applications to Frobenius' conjecture}
-\abstracttitle{Bachelor Thesis}
+\abstracttitle{Combinatorial aspects of surface Cluster algebras and applications to Frobenius' conjecture}
 \author[a.bonucci@student.vu.nl, 2694276]{Andrea Bonucci}
 \supervisor{Dr. {\.{I}}lke {\c{C}}anak{\c{c}}{\i}}
+\secondgrader{Dr. Senja Barthel}
 \input{SnakeGraphGeneratorImages}
 
 \begin{document}
@@ -104,13 +106,13 @@ style=alphabetic,
 \maketitle
 
 \begin{abstract}
-    In this report, we seek to explore various techniques within Cluster algebra and utilize them in order to better understand the behaviour of Markov numbers. We use \emph{palindromification} of continued fractions and connect them to the idea of \emph{snake graph} to then attain a reformulation of Frobenius' conjecture in Cluster algebraic terms. Consequently, we apply \emph{Skein relations} within the natural number lattice $\mathbb{N}\times \mathbb{N}$ to define \emph{left} and \emph{right deformations} around lattice points to provide a few result on the ordering of Markov numbers; and prove a conjecture posed by Aigner in \cite{A}. 
+    Since Frobenius stated his conjecture on the uniqueness of Markov triples in 1913, many have attempted to crack it; and in doing so uncovered essential knowledge about the conjecture. In this report, we seek to explore various techniques within Cluster algebra and utilize them in order to better understand the behaviour of Markov numbers. We use \emph{palindromification} of continued fractions and connect them to the idea of \emph{snake graph} to attain a reformulation of Frobenius' conjecture in Cluster algebraic terms. Consequently, we apply \emph{Skein relations} within the natural number lattice $\mathbb{N}\times \mathbb{N}$ to define \emph{left} and \emph{right deformations} around lattice points to provide a few result on the ordering of Markov numbers; and prove a conjecture posed by Aigner in \cite{A}. 
 \end{abstract}
 \newpage 
 \tableofcontents
 \newpage
 \chapter*{Introduction}
-Cluster algebras were first introduced in 2002 by Sergey Fomin and Andrei Zelevinsky in \cite{FZ1}. These have been getting increasingly more attention and are found in many areas of mathematics; such as combinatorics, as we will see throughout this report, representation theory, tropical geometry, and many more. Additionally, there are several applications in other disclipines; for example in theoretical physics, a concept named \emph{Seiberg Duality} \cite{Bao}. 
+Cluster algebras were first introduced in 2002 by Sergey Fomin and Andrei Zelevinsky in \cite{FZ1}. These have been getting increasingly more attention and are found in many areas of mathematics; such as combinatorics, as we will see throughout this report, representation theory, tropical geometry, and many more. Additionally, there are several applications in other disclipines; for example in theoretical physics, we have \emph{Calabi-Yau manifolds}  (cover page) and a concept named \emph{Seiberg Duality} \cite{Bao}. 
 
 In the first chapter, we will outline the formal definition of Cluster algebras in purely algebraic terms. We begin by defining the ambient field, a \emph{tropical semifield}; then we describe the three components of a Cluster algebra, namely, the \emph{initial cluster} $\mathbf{x}$, the \emph{initial coefficients} $\mathbf{y}$ and the cluster quiver $\mathcal{Q}$ (a type of directed graph). It is worth noting that Fomin and Zelevinsky first introduced cluster algebras via \emph{skew-symmetric} matrices; which then has an associated quiver. 
 

@@ -36,7 +36,7 @@ $
 $
 \\
 
-Then, the snake graph $\mathcal{S}[a_1,\dots,a_n]$ is the graph with precisely $a_1 + \dots + a_n - 1$ tiles determined by the sign sequence \ref{signsequence}. For the reader's understanding, we provide a worked out example. 
+Then, the snake graph $\mathcal{S}[a_1,\dots,a_n]$ is the snake graph with precisely $a_1 + \dots + a_n - 1$ tiles determined by the sign sequence \ref{signsequence}. For the reader's understanding, we provide a worked out example. 
 
 \begin{example}\label{Ex3.5}
 Consider the fraction $31/7$, with its corresponding continued fraction $[4,2,3]$. We get the sign sequence
@@ -64,7 +64,26 @@ We can take the above result to yield an even stronger condition on the relation
 
     We begin by induction on $n$; if $n=1$ then $\s[a_1]$ is a zigzag snake graph with precisely $a_1-1$ tiles. For $a_1 = 1$, this is a single edge, which has precisely 1 perfect matching. If $a_1 > 1$, then we have precisely one perfect matching that does not contain the south edge of the first tile $e_0$; therefore it must contain the west edge of the first tile $b_0$. Moreover, it must be a perfect matching of the snake graph without its first tile. By induction we obtain that there are precisely $a_1$ perfect matchings. 
 
-    In the case when $n>1$, let $P$ be a perfect matching of the snake graph $\s[a_1,\dots,a_n]$ with denominator denoted by $\mathcal{N}[a_1,\dots,a_n]$. Since $n>1$, there must be a subsnake graph $(G_{i-1},G_i,G_{i+1})$ that is straight. If $P$ does not contain the two edges of $G_i$, then the restriction of P to 
+    In the case when $n>1$, let $P$ be a perfect matching of the snake graph $\s[a_1,\dots,a_n]$ with denominator denoted by $\mathcal{N}[a_1,\dots,a_n]$. Since $n>1$, there must be a subsnake graph $(G_{i-1},G_i,G_{i+1})$ that is straight. If $P$ does not contain the two boundary edges of $G_i$, then the restriction of P to $\s[a_1]$ and $\s[a_2,\dots,a_n]$ are perfect matchings. By induction, we get exactly $a_1\mathcal{N}[a_2,\dots,a_n]$ perfect matchings. 
+
+    Suppose $P$ contains he two boundary edges of $G_i$, then the restriction of $P$ to $\s[a_1]$ and $\s[a_2]$ are contain only boundary edges as both are zigzag graphs. Similarly, the restriction to $\s[a_3,\dots,a_n]$ is a perfect matching. By induction we get $\mathcal{N}[a_3,
+    \dots,a_n]$ perfect matchings. If we add the two cases together, we obtain a total of $a_1\mathcal{N}[a_2,\dots,a_n] + \mathcal{N}[a_3,\dots,a_n]$ perfect matchings.
+
+    Let $N$ and $D$ be the numerator and denominator of the continued fraction $[a_3,\dots,a_n]$; then observe that 
+    \begin{align*}
+        [a_1,\dots,a_n] &= a_1 + \dfrac{1}{a_2 + \dfrac{D}{N}}; \\
+        &= \dfrac{a_1(a_2N + D) + N}{a_2N + D}.
+    \end{align*}
+    Since $N$ and $D$ are relatively prime (by their definition), we get that the fraction above is reduced; and more precisely, $\mathcal{N}[a_1,\dots,a_n] = a_1(a_2N+D) + N$. Similarly, notice that 
+    \begin{align*}
+        [a_2,\dots,a_n] &= a_2 + \dfrac{D}{N};\\
+        &= \dfrac{a_2N + D}{N}.
+    \end{align*}
+    Thus, if we combine the two expressions we just obtained, we see that 
+    \begin{equation*}
+        \mathcal{N}[a_1,\dots,a_n] = a_1\mathcal{N}[a_2,\dots,a_n] + \mathcal{N}[a_3,\dots,a_n];
+    \end{equation*}
+    as required. As previously mentioned, as the denominator of $[a_1,\dots,a_n]$ is simply the numerator of the continued fraction $[a_2,\dots,a_n]$, the result holds for the denominator too.
 \end{proof}
 In other words, the number of perfect matchings of the snake graph $\mathcal{S}[a_2,\dots,a_n]$ is equal to the denominator of the continued fraction $[a_1,a_2,\dots,a_n]$. Applying it to Example \ref{Ex3.5}, we get the continued fraction $[2,3]$, with sign sequence $
 \begin{array}{cc}
@@ -228,10 +247,10 @@ Now consider $[a_1.\dots,a_n]$; if $n$ is even, then the continued fraction is s
 
        On the other hand, suppose $\s$ has a rotational symmetry at its center tile $G_i$; then it is clear that the tiles $G_{i-1},G_i,G_{i+1}$ form a snake graph that is isomorphic to $\s[2,2]$; so the interior edges $e_{i-1}$ and $e_i$ have different signs. Define $\s[a_1,\dots,a_j]$ to be the snake graph consisting of the first $i-1$ tiles; and $\s[a_{j+1},\dots,a_n]$ that formed by the last $i-1$ tile. Then we must have that $\s$ is of the form $\s[a_1,\dots,a_j,a_{j+1},\dots,a_n]$. By rotational symmetry, we have $(a_1,\dots,a_j) = (a_n,\dots,a_{j+1})$; as required. 
    \end{proof}
-To illustrate \ref{thm3.10}, notice that in figure \ref{fig3.1}, on the left, we have the snake graph $\s[3,3]$, and on the right we have $\s[2,1,2,2,1,2]$; both of which are palindromic of even length. Next, consider a snake graph $\s=\s[a_1,\dots,a_n]$. We define the \emph{palindromification} of $\s$, $\s_{\leftrightarrow}$, to be $\s_{\leftrightarrow} = \s[a_n,\dots,a_1,a_1,\dots,a_n]$; that is, we glue two copies of $\s$ together, via a new center tile. 
+To illustrate Theorem \ref{thm3.10}, notice that in figure \ref{fig3.1}, on the left, we have the snake graph $\s[3,3]$, and on the right we have $\s[2,1,2,2,1,2]$; both of which are palindromic of even length. Next, consider a snake graph $\s=\s[a_1,\dots,a_n]$. We define the \emph{palindromification} of $\s$, $\s_{\leftrightarrow}$, to be $\s_{\leftrightarrow} = \s[a_n,\dots,a_1,a_1,\dots,a_n]$; that is, we glue two copies of $\s$ together, via a new center tile. 
 \\
 
-Let $b_i$ be the single edge corresponding to the tile $G_{l_i}$ in $\s[a_1,\dots,a_n]$, $b_0$ the unique edge in the first tile $G_1$ apart from the edge $e_0$, and $b_n$ the unique edge in the last tile $G_d$ apart from the edge $e_d$. In \cite{CS2} the authors proved the following identity, through a process called \emph{grafting} (see also \cite{CS3});
+Let $b_i$ be the single edge corresponding to the tile $G_{l_i}$ in $\s[a_1,\dots,a_n]$, $b_0$ the unique edge in the first tile $G_1$ apart from the edge $e_0$, and $b_n$ the unique edge in the last tile $G_d$ apart from the edge $e_d$. In \cite{CS2}, through a process called \emph{grafting} (see also \cite{CS3}), which is simply a way to represent the snake graph of a self-crossing arc as the sum of the snake graphs of the arcs obtained after the smoothing process at the point of self-crossing, the authors proved the following identity;
 \begin{theorem}\label{thm3.11}
     If we set $b_0 = \s[a_1,\dots,a_0]$, and $b_n = \s[a_{n+1},\dots,a_n]$, we obtain the following identity;
 \begin{equation*}
@@ -265,7 +284,7 @@ Consequently, we obtain the following corollary;
     \begin{align}
         [a_n,\dots,a_1,a_1,\dots,a_n] &= \dfrac{m(\pal{\s})}{m(\s[a_{n-1},\dots,a_1,a_1,\dots,a_n])}
     \end{align}
-    where via Theorem \ref{thm3.12} and \ref{thm3.11}, the left side becomes;
+    where via Theorem \ref{thm3.12} and \ref{thm3.11}, the right side becomes;
     \begin{equation*}
         \dfrac{m(\s)^2 + m(\Tilde{\s})^2}{m(\s[a_{n-1},\dots,a_1])m(\s[a_1,\dots,a_n])+ m(\s[a_{n-1},\dots,a_2])m(\s[a_2,\dots,a_n])};
     \end{equation*}

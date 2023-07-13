@@ -94,7 +94,7 @@ Suppose we now want to construct a snake graph corresponding to an arc on any gi
     \centering
 \begin{tikzpicture} 
     %\begin{pgfonlayer}{bg}
-    \clip (0,0) rectangle (12cm,6cm);
+    \clip (0,0) rectangle (13cm,6cm);
     %\draw[style=help lines] (-14,-14) grid[step=1cm] (14,14);
     %\end{pgfonlayer}
 
@@ -348,7 +348,7 @@ Where $x(P) = \prod_{e \in P}x(e)$ is the weight of $P$ and $y(p)$ is the height
 \caption{In this figure we have a triangulated hexagon and an arc $\gamma$ (left), with its corresponding labeled snake graph $\s_{\gamma}$(center); and its perfect matchings with their corresponding monomials calculated through the expansion formula \ref{ExpansionFormula}.}
 \end{figure}
 
-To better explain how the height monomial works, we can see in the above figure that from the top left perfect matching to the top right one, we are rotating tile 1, which gives the $y_1$ term. To then go to the bottom left, we rotate tile 2, which yields the term $y_2$. Finally, to go from bottom left to bottom right, we rotate tile 3 which yields the $y_3$ term. Moreover, the weight is calculated by looking at which edges are contained in the perfect matching. For example, in the top left perfect matching, we see that it contains edge 2 and 3 of our triangulation; these yield the $x_2$ and $x_3$ terms.
+To better explain how the height monomial works, we can see in the above figure that from the top left perfect matching (the one with only boundary edges, $P_-$) to the top right one, we are rotating tile 1, which gives the $y_1$ term. To then go to the bottom left, we rotate tile 2, which yields the term $y_2$. Finally, to go from bottom left to bottom right (the one with only boundary edges, $P_+$), we rotate tile 3 which yields the $y_3$ term. Moreover, the weight is calculated by looking at which edges are contained in the perfect matching. For example, in the top left perfect matching, we see that it contains edge 2 and 3 of our triangulation; these yield the $x_2$ and $x_3$ terms.
 
 Finally, from Figure 2.7, we obtain that
 \begin{equation*}
